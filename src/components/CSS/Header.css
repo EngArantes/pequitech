@@ -1,0 +1,50 @@
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(145deg, #1b5e20, #1b5e20, #388e3c,  #388e3c); /* Gradiente metálico verde */
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidade */
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1); /* Borda sutil para mais realismo */
+}
+
+.logo-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white; 
+}
+
+/* Logo */
+.logomarcaHeader {
+  width: 100px;
+  margin: 20px;
+}
+
+/* Estilizando os links */
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+/* Hover nos links */
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+/* Estilização do ícone de usuário */
+.icon-button {
+  background: none;
+  border: none;
+  color: #F6C113;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-button:hover {
+  color: #c0c0c0;
+}
+

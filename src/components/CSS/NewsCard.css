@@ -1,0 +1,124 @@
+/* src/CSS/NewsCard.css */
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 20px; /* Reduz a margem */
+  width: 23%; /* Largura flexível para caber 4 cards */
+  min-width: 250px; /* Largura mínima para evitar que fiquem muito pequenos */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+}
+
+.card-link {
+  text-decoration: none; /* Remove o sublinhado do link */
+  color: inherit; /* Mantém a cor do texto padrão */
+}
+
+.card-image {
+  width: 100%;
+  height: 150px; /* Reduz a altura da imagem */
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 10px; /* Reduz o padding */
+}
+
+.card-title {
+  font-size: 16px; /* Reduz o tamanho do título */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.card-summary {
+  font-size: 14px; /* Reduz o tamanho da descrição */
+  color: #666;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.card-date {
+  font-size: 12px; /* Reduz o tamanho da data */
+  color: #999;
+  text-align: right;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .card {
+    width: 30%; /* 3 cards por linha em telas menores */
+  }
+}
+
+@media (max-width: 992px) {
+  .card {
+    width: 45%; /* 2 cards por linha em tablets */
+  }
+
+  .card-title {
+    font-size: 15px; /* Reduz o tamanho do título */
+  }
+
+  .card-summary {
+    font-size: 13px; /* Reduz o tamanho da descrição */
+  }
+
+  .card-date {
+    font-size: 11px; /* Reduz o tamanho da data */
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%; /* 1 card por linha em telas pequenas */
+    margin: 10px 0; /* Reduz a margem */
+  }
+
+  .card-image {
+    height: 120px; /* Reduz a altura da imagem */
+  }
+
+  .card-title {
+    font-size: 16px; /* Mantém o tamanho do título */
+  }
+
+  .card-summary {
+    font-size: 14px; /* Mantém o tamanho da descrição */
+  }
+
+  .card-date {
+    font-size: 12px; /* Mantém o tamanho da data */
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%; /* 1 card por linha em dispositivos móveis */
+    margin: 10px 0; /* Reduz a margem */
+  }
+
+  .card-image {
+    height: 100px; /* Reduz ainda mais a altura da imagem */
+  }
+
+  .card-title {
+    font-size: 15px; /* Reduz o tamanho do título */
+  }
+
+  .card-summary {
+    font-size: 13px; /* Reduz o tamanho da descrição */
+  }
+
+  .card-date {
+    font-size: 11px; /* Reduz o tamanho da data */
+  }
+}

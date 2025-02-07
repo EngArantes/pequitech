@@ -1,0 +1,28 @@
+.manage-users-container {
+    margin-top: 20px;
+  }
+  
+  .manage-users-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .manage-users-container li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .manage-users-container button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .manage-users-container button:hover {
+    background-color: #c0392b;
+  }
+  

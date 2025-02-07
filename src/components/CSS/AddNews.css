@@ -1,0 +1,75 @@
+.add-news-container {
+    margin: 30px auto;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-news-container h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.add-news-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-news-container input,
+.add-news-container select,
+.add-news-container textarea {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.add-news-container input:focus,
+.add-news-container select:focus,
+.add-news-container textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.add-news-container input[type="file"] {
+    padding: 5px;
+}
+
+.add-news-container textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.add-news-container button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-news-container button:hover {
+    background-color: #45a049;
+}
+
+.add-news-container button:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+}
+
+.add-news-container p {
+    color: #888;
+    font-size: 14px;
+    text-align: center;
+}

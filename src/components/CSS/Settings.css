@@ -1,0 +1,28 @@
+.settings-container {
+    margin-top: 20px;
+  }
+  
+  .settings-container label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .settings-container input {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .settings-container button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .settings-container button:hover {
+    background-color: #45a049;
+  }
+  
