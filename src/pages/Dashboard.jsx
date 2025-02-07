@@ -6,6 +6,8 @@ import NewsList from "../components/NewsList"; // Componente para exibir notíci
 import ManageUsers from "../components/ManageUsers"; // Componente para gerenciar usuários
 import Settings from "../components/Settings"; // Componente para configurações
 import AddBanners from '../components/AddPrincipalBanner';
+import AddBannersLaterais from '../components/AddLateraisBanner';
+
 import "./CSS/Dashboard.css";
 
 const Dashboard = () => {
@@ -76,9 +78,11 @@ const Dashboard = () => {
         )}
 
         {activeSection === 'add-banners' && (
-          <div className="section">
+          <div className="section-banners">
             <AddBanners /> {/* Componente para gerenciar banners */}
+            <AddBannersLaterais />
           </div>
+         
         )}
 
         {activeSection === 'users' && (

@@ -1,71 +1,97 @@
-// src/pages/NewsDetail.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; // Para acessar o parâmetro da URL
 import { db } from '../firebaseConfig'; // Importe o Firestore
 import { doc, getDoc } from 'firebase/firestore';
 import './CSS/NewsDetail.css';
+import PrincipalBanner from '../components/RenderPrincipalBanner';
 
 const NewsDetail = () => {
-  const { id } = useParams(); // Pega o ID da notícia na URL
-  const [news, setNews] = useState(null);
-  const [loading, setLoading] = useState(true); // Estado para indicar carregamento
-  const [error, setError] = useState(""); // Estado para mensagens de erro
+    const { id } = useParams(); // Pega o ID da notícia na URL
+    const [news, setNews] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
-  // Função para buscar a notícia detalhada
-  const fetchNewsDetail = async () => {
-    try {
-      const newsDoc = doc(db, 'news', id); // Acessa o documento da coleção 'news' com o ID fornecido
-      const newsSnapshot = await getDoc(newsDoc);
+    // Função para buscar a notícia detalhada
+    const fetchNewsDetail = async () => {
+        if (!id) {
+            setError('ID da notícia não encontrado');
+            setLoading(false);
+            return;
+        }
 
-      if (newsSnapshot.exists()) {
-        const data = newsSnapshot.data();
-        setNews({
-          title: data.title,
-          description: data.description,
-          content: data.content, // O conteúdo completo da notícia
-          date: data.date.toDate().toLocaleDateString(), // Formatação da data
-          imageUrl: data.imageUrl || '',
-        });
-      } else {
-        setError("Notícia não encontrada.");
-      }
-    } catch (err) {
-      console.error("Erro ao buscar a notícia:", err);
-      setError("Erro ao carregar a notícia. Tente novamente.");
-    } finally {
-      setLoading(false);
+        try {
+            const newsDoc = doc(db, 'news', id);
+            const newsSnapshot = await getDoc(newsDoc);
+
+            if (newsSnapshot.exists()) {
+                const data = newsSnapshot.data();
+                setNews({
+                    categoria: data.category,
+                    title: data.title,
+                    description: data.summary,
+                    legenda: data.imageCaption,
+                    content: data.content,
+                    date: data.createdAt.toDate().toLocaleDateString(),
+                    imageUrl: data.imageUrl || '',
+                });
+            } else {
+                setError("Notícia não encontrada.");
+            }
+        } catch (err) {
+            console.error('Erro ao buscar a notícia:', err);
+            setError("Erro ao carregar a notícia. Tente novamente.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        setError(''); // Limpa o erro caso a URL seja alterada
+        setNews(null); // Limpa os dados da notícia antes de uma nova requisição
+        fetchNewsDetail();
+    }, [id]); // Dependência para refazer a requisição quando o id mudar
+
+    if (loading) {
+        return <p>Carregando detalhes...</p>;
     }
-  };
 
-  useEffect(() => {
-    fetchNewsDetail();
-  }, [id]);
+    if (error) {
+        return <p className="error-message-detail">{error}</p>;
+    }
 
-  if (loading) {
-    return <p>Carregando detalhes...</p>;
-  }
+    return (
+        <div className="news-detail">
+            <div><PrincipalBanner /></div>
+            <div className="news-grid-detail">
+                {/* Coluna esquerda (pode ficar vazia ou com conteúdo secundário) */}
+                <div className="coluna-esquerda-detail">
+                    <p>Coluna Esquerda (Conteúdo secundário)</p>
+                </div>
 
-  if (error) {
-    return <p className="error-message">{error}</p>;
-  }
+                {/* Coluna central (onde ficará a notícia detalhada) */}
+                <div className="coluna-central-detail">
+                    {news ? (
+                        <div className="news-content-detail">
+                            <p className='news-category-detail'>{news.categoria}</p>
+                            <h1>{news.title}</h1>
+                            <p className="news-description-detail">{news.description}</p>
+                            {news.imageUrl && <img src={news.imageUrl} alt={news.title} />}
+                            <p className="news-legenda-detail">{news.legenda}</p>
+                            <p className="news-date-detail">{news.date}</p>
+                            <p className="news-content-text-detail">{news.content}</p>
+                        </div>
+                    ) : (
+                        <p>Nenhuma notícia encontrada.</p>
+                    )}
+                </div>
 
-  return (
-    <div className="news-detail">
-      {news ? (
-        <div className="news-content">
-          <h1>{news.title}</h1>
-          {news.imageUrl && (
-            <img src={news.imageUrl} alt={news.title} className="news-image" />
-          )}
-          <p className="news-date">{news.date}</p>
-          <p className="news-description">{news.description}</p>
-          <p className="news-content-text">{news.content}</p>
+                {/* Coluna direita (pode ficar vazia ou com conteúdo secundário) */}
+                <div className="coluna-direita-detail">
+                    <p>Coluna Direita (Conteúdo secundário)</p>
+                </div>
+            </div>
         </div>
-      ) : (
-        <p>Nenhuma notícia encontrada.</p>
-      )}
-    </div>
-  );
+    );
 };
 
 export default NewsDetail;

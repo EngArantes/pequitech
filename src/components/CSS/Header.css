@@ -1,36 +1,80 @@
+/* Estilos gerais */
 .nav-links {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: linear-gradient(145deg, #1b5e20, #1b5e20, #388e3c,  #388e3c); /* Gradiente metálico verde */
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidade */
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1); /* Borda sutil para mais realismo */
-}
-
-.logo-container{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white; 
+  background: linear-gradient(145deg, #1b5e20, #1b5e20, #388e3c, #388e3c); /* Gradiente metálico verde */
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra mais suave e destacada */
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1); /* Borda sutil para mais realismo */
+  padding: 10px 20px;
+  position: relative; /* Adicionado para posicionar o Mega Menu corretamente */
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 5px;
+  transition: transform 0.3s ease; /* Efeito de transição */
+  
+}
+
+.logo-container:hover {
+  transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
 }
 
 /* Logo */
 .logomarcaHeader {
   width: 100px;
-  margin: 20px;
+  height: auto;
+  transition: transform 0.3s ease;
+  margin-right: 50px;
+}
+
+.logomarcaHeader:hover {
+  transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
 }
 
 /* Estilizando os links */
 .nav-links a {
+  font-size: large;
   text-decoration: none;
   color: white;
   font-weight: bold;
+  padding: 10px 15px;
+  position: relative;
+  transition: all 0.3s ease; /* Transição suave */
+  border-radius: 5px; /* Bordas arredondadas */
+  margin-right: 50px;
 }
 
 /* Hover nos links */
 .nav-links a:hover {
-  text-decoration: underline;
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil ao passar o mouse */
+  text-decoration: none;
+  transform: translateY(-2px); /* Efeito de elevação */
+}
+
+
+
+/* Efeito de sublinhado animado */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #F6C113;
+  bottom: 0;
+  left: 50%;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+  left: 0;
 }
 
 /* Estilização do ícone de usuário */
@@ -42,9 +86,109 @@
   font-size: 20px;
   display: flex;
   align-items: center;
+  padding: 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
 }
 
 .icon-button:hover {
-  color: #c0c0c0;
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil ao passar o mouse */
+  color: #ffdd57; /* Cor mais vibrante ao passar o mouse */
+  transform: scale(1.1); /* Efeito de zoom */
+  filter: drop-shadow(0 0 8px rgba(246, 193, 19, 0.8)); /* Efeito de brilho */
 }
 
+/* Mega Menu */
+.mega-menu {
+  position: relative;
+}
+
+.mega-menu:hover .mega-menu-content {
+  display: flex;
+  animation: fadeIn 0.3s ease; /* Animação de fade-in */
+}
+
+.mega-menu-content {
+  display: none;
+  position: absolute;
+  top: 100%; /* Posiciona o Mega Menu abaixo do link */
+  left: 0;
+  background: #5f5f5f;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
+  width: 130%; /* Ocupa toda a largura do container pai */
+  z-index: 10;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border-radius: 0 0 8px 8px; /* Bordas arredondadas apenas na parte inferior */
+}
+
+/* Estilo para as colunas do mega menu */
+.mega-menu-column {
+  width: 100%;
+  padding: 10px;
+}
+
+.mega-menu-column h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  border-bottom: 2px solid #F6C113; /* Linha decorativa */
+  padding-bottom: 5px;
+}
+
+/* Sub-itens do mega menu */
+.sub-item {
+  display: block;
+  color: #F6C113;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: all 0.3s ease; /* Transição suave */
+}
+
+.sub-item:hover {
+  color: #ffdd57; /* Cor mais vibrante ao passar o mouse */
+  text-decoration: underline;
+  transform: translateX(5px); /* Efeito de deslocamento */
+}
+
+/* Animação de fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .nav-links a {
+    padding: 8px 12px;
+  }
+
+  .logomarcaHeader {
+    width: 80px;
+  }
+
+  .mega-menu-content {
+    position: static;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 8px; /* Bordas arredondadas para telas menores */
+  }
+
+  .mega-menu-column {
+    width: 100%;
+    padding: 5px;
+  }
+}

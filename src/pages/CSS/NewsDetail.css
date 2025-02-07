@@ -1,35 +1,84 @@
-/* src/CSS/NewsDetail.css */
 .news-detail {
     padding: 20px;
-    background-color: #f4f4f4;
-  }
-  
-  .news-content {
-    background-color: white;
+}
+
+.news-grid-detail {
+    display: grid;
+    grid-template-columns: 0.7fr 2fr 0.7fr; /* Define três colunas, com a do meio maior */
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.coluna-esquerda-detail,
+.coluna-direita-detail {
+    background-color: rgb(128, 128, 128);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .news-content h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
-  }
-  
-  .news-content img {
-    max-width: 100%;
+}
+
+.coluna-central-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;  /* Garante que o conteúdo da coluna central seja centralizado */
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;  /* Adicionando padding para espaçamento */
+}
+
+.news-category-detail{
+    font-weight: bold;
+    text-align: left;
+    font-style: italic;
+    background-color: rgb(221, 221, 221);
+    width: 100%;
+    padding: 10px;
+}
+
+.news-content-detail {
+    width: 100%;  /* Garante que o conteúdo ocupe toda a largura disponível */
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centraliza os itens dentro da notícia */
+}
+
+.news-content-detail img {
+    width: 70%;
     height: auto;
     border-radius: 8px;
-    margin-top: 20px;
-  }
-  
-  .news-content p {
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .news-content .news-date {
-    font-size: 14px;
-    color: #888;
-  }
-  
+}
+
+.news-legenda-detail {
+    width: 70%;
+    font-size: 0.8em;
+    font-style: italic;
+    color: gray;
+}
+
+.news-content-detail h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.news-content-detail .news-date-detail {
+    font-size: 1em;
+    color: gray;
+    margin-bottom: 20px;
+}
+
+.news-content-detail .news-description-detail {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: rgb(134, 134, 134);
+}
+
+.news-content-detail .news-content-text-detail {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.error-message-detail {
+    color: red;
+}

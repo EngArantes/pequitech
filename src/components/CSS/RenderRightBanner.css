@@ -1,0 +1,26 @@
+/* src/components/CSS/BannerRight.css */
+
+.banner-right {
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .banner-right img {
+    width: 100%;
+    max-width: 300px; /* Ajuste o tamanho máximo conforme necessário */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .banner-right a {
+    display: block;
+    text-decoration: none;
+  }
+  
+  .banner-right p {
+    font-size: 16px;
+    color: #333;
+  }
+  
