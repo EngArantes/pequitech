@@ -70,24 +70,7 @@ const Modal = ({ onClose }) => {
                 />
                 <button type="submit">Entrar</button>
               </div>
-            ) : (
-              <div>
-                <h2>Registrar</h2>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                  type="password"
-                  placeholder="Senha"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <button type="submit">Cadastrar</button>
-              </div>
-            )}
+            ) : null}
           </form>
         </div>
       </div>

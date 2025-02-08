@@ -14,11 +14,12 @@ const Home = () => {
   const [hasMore, setHasMore] = useState(true); // Para verificar se ainda há mais notícias
   const [lastVisible, setLastVisible] = useState(null); // Para controlar a última notícia visível
 
+  // Função para buscar notícias
   const fetchNews = async () => {
     const newsCollection = collection(db, 'news');
-    const newsQuery = lastVisible 
-      ? query(newsCollection, orderBy('createdAt', 'desc'), startAfter(lastVisible), limit(8))  // Limite aumentado para 8
-      : query(newsCollection, orderBy('createdAt', 'desc'), limit(8));  // Limite aumentado para 8
+    const newsQuery = lastVisible
+      ? query(newsCollection, orderBy('createdAt', 'desc'), startAfter(lastVisible), limit(8))
+      : query(newsCollection, orderBy('createdAt', 'desc'), limit(8));
 
     try {
       const newsSnapshot = await getDocs(newsQuery);
@@ -33,8 +34,13 @@ const Home = () => {
         };
       });
 
-      setNews((prevNews) => [...prevNews, ...newsList]);
-      setLoading(false);
+      // Evitar duplicação no estado
+      setNews((prevNews) => {
+        const uniqueNews = newsList.filter((newsItem) =>
+          !prevNews.some((prevItem) => prevItem.id === newsItem.id)
+        );
+        return [...prevNews, ...uniqueNews];
+      });
 
       // Atualizando o último documento para carregar mais na próxima consulta
       const lastVisibleDoc = newsSnapshot.docs[newsSnapshot.docs.length - 1];
@@ -46,19 +52,21 @@ const Home = () => {
       }
     } catch (error) {
       console.error('Erro ao buscar as notícias:', error);
+      setHasMore(false); // Não há mais notícias para carregar se der erro
+    } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchNews(); // Chama a função de busca quando o componente é montado
-  }, []); // Executa apenas uma vez ao montar o componente
+  }, []); // Adicionando dependência vazia para chamar apenas uma vez
 
   return (
     <div className="home">
       <div><PrincipalBanner /></div>
       <main className="news-grid">
-        <div className="coluna-esquerda"><BannerEsquerda/></div>
+        <div className="coluna-esquerda"><BannerEsquerda /></div>
         <div className="coluna-central">
           {loading ? (
             <div className="spinner">Carregando...</div>
@@ -67,7 +75,7 @@ const Home = () => {
               dataLength={news.length}
               next={fetchNews}
               hasMore={hasMore}
-              loader={<div className="spinner">Carregando mais notícias...</div>}
+              loader={<div className="spinner"></div>}
               endMessage={<p style={{ textAlign: 'center' }}>Você chegou ao final!</p>}
             >
               <div className="news-container">
@@ -85,7 +93,7 @@ const Home = () => {
             </InfiniteScroll>
           )}
         </div>
-        <div className="coluna-direita"><BannerDireita/></div>
+        <div className="coluna-direita"><BannerDireita /></div>
       </main>
     </div>
   );

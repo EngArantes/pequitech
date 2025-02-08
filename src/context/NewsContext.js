@@ -1,6 +1,6 @@
-import React, { createContext, useState, useContext } from 'react';
-import { db, storage } from '../firebaseConfig'; 
-import { collection, addDoc, Timestamp } from 'firebase/firestore'; 
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { db, storage } from '../firebaseConfig';
+import { collection, addDoc, getDocs, query, where, Timestamp } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 export const NewsContext = createContext();
@@ -9,6 +9,7 @@ export const NewsProvider = ({ children }) => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Função para adicionar notícias
   const addNews = async ({
     title,
     category,
@@ -21,61 +22,85 @@ export const NewsProvider = ({ children }) => {
   }) => {
     try {
       let imageUrl = "";
+
       if (image) {
         const storageRef = ref(storage, `news_images/${image.name}`);
         const uploadTask = uploadBytesResumable(storageRef, image);
 
-        uploadTask.on(
-          'state_changed',
-          (snapshot) => {
-            // Monitorando o progresso do upload
-            const prog = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log(`Progresso: ${prog}%`);
-          },
-          (error) => {
-            console.error("Erro ao fazer upload da imagem: ", error);
-          },
-          () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              imageUrl = downloadURL;
-              // Adiciona a notícia ao Firestore
-              addDoc(collection(db, 'news'), {
-                category,
-                title,
-                summary,
-                content,
-                imageUrl,
-                imageCaption,
-                videoLink,
-                source,
-                createdAt: Timestamp.fromDate(new Date()), 
-              }).then(() => {
-                console.log("Notícia adicionada com sucesso!");
-              });
-            });
-          }
-        );
-      } else {
-        await addDoc(collection(db, 'news'), {
-          category,
-          title,
-          summary,
-          content,
-          imageUrl: '',
-          imageCaption,
-          videoLink,
-          source,
-          createdAt: Timestamp.fromDate(new Date()),
+        // Aguarda o upload da imagem antes de continuar
+        await new Promise((resolve, reject) => {
+          uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log(`Progresso: ${progress}%`);
+            },
+            (error) => {
+              console.error("Erro ao fazer upload da imagem: ", error);
+              reject(error);
+            },
+            async () => {
+              imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
+              resolve();
+            }
+          );
         });
-        console.log("Notícia adicionada sem imagem.");
       }
+
+      // Adiciona a notícia ao Firestore
+      await addDoc(collection(db, 'news'), {
+        category: category.toLowerCase(), // Garante que a categoria sempre será salva em minúsculas
+        title,
+        summary,
+        content,
+        imageUrl,
+        imageCaption,
+        videoLink,
+        source,
+        createdAt: Timestamp.fromDate(new Date()),
+      });
+
+      console.log("Notícia adicionada com sucesso!");
     } catch (error) {
       console.error("Erro ao adicionar notícia: ", error);
     }
   };
 
+  // Função para buscar notícias por categoria
+  const getNewsByCategory = async (categoria) => {
+    setLoading(true);
+    try {
+      const q = query(collection(db, 'news'), where('category', '==', categoria.toLowerCase()));
+      const querySnapshot = await getDocs(q);
+      const newsArray = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setNews(newsArray);
+    } catch (error) {
+      console.error("Erro ao buscar notícias por categoria: ", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Carregar todas as notícias ao inicializar o contexto
+  useEffect(() => {
+    const fetchAllNews = async () => {
+      setLoading(true);
+      try {
+        const querySnapshot = await getDocs(collection(db, 'news'));
+        const newsArray = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setNews(newsArray);
+      } catch (error) {
+        console.error("Erro ao carregar notícias: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllNews();
+  }, []);
+
   return (
-    <NewsContext.Provider value={{ news, loading, addNews }}>
+    <NewsContext.Provider value={{ news, loading, addNews, getNewsByCategory }}>
       {children}
     </NewsContext.Provider>
   );

@@ -79,6 +79,10 @@
     line-height: 1.6;
 }
 
+.news-fonte-text-detail{
+    text-align: start;
+}
+
 .error-message-detail {
     color: red;
 }

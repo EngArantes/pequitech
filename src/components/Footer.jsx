@@ -1,6 +1,5 @@
 import React from 'react';
-import './Footer.css'; 
-import Banner_home from '../img/banner_home.jpg';
+import '../components/CSS/Footer.css'; 
 
 const Footer = () => {
   return (
@@ -8,7 +7,7 @@ const Footer = () => {
 
       {/* Footer */}
       <footer className="footer-footer">
-        <p>&copy; 2023 Pequi Zone. Todos os direitos reservados.</p>
+        <p>&copy; 2025 PequiTech. Todos os direitos reservados.</p>
       </footer>
     </div>
   );
