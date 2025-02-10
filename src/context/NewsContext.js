@@ -1,13 +1,16 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 import { db, storage } from '../firebaseConfig';
-import { collection, addDoc, getDocs, query, where, Timestamp } from 'firebase/firestore';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { collection, addDoc, getDocs, query, where, Timestamp, deleteDoc, doc} from 'firebase/firestore';
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
+import { convertToRaw } from 'draft-js';
+
 
 export const NewsContext = createContext();
 
 export const NewsProvider = ({ children }) => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
+  
 
   // Função para adicionar notícias
   const addNews = async ({
@@ -46,65 +49,101 @@ export const NewsProvider = ({ children }) => {
           );
         });
       }
-
+      const rawContent = JSON.stringify(convertToRaw(content.getCurrentContent())); // Não há alteração aqui, já que 'content' agora é EditorState
       // Adiciona a notícia ao Firestore
       await addDoc(collection(db, 'news'), {
-        category: category.toLowerCase(), // Garante que a categoria sempre será salva em minúsculas
+        category: category.toLowerCase(),
         title,
         summary,
-        content,
+        content: rawContent,  // Agora armazenamos o JSON corretamente
         imageUrl,
         imageCaption,
         videoLink,
         source,
         createdAt: Timestamp.fromDate(new Date()),
-      });
+    });
+    
 
       console.log("Notícia adicionada com sucesso!");
     } catch (error) {
       console.error("Erro ao adicionar notícia: ", error);
     }
   };
+  
 
-  // Função para buscar notícias por categoria
-  const getNewsByCategory = async (categoria) => {
+  // Função para buscar todas as notícias
+  const fetchAllNews = async () => {
     setLoading(true);
     try {
-      const q = query(collection(db, 'news'), where('category', '==', categoria.toLowerCase()));
-      const querySnapshot = await getDocs(q);
-      const newsArray = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const querySnapshot = await getDocs(collection(db, 'news'));
+      const newsArray = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
       setNews(newsArray);
     } catch (error) {
-      console.error("Erro ao buscar notícias por categoria: ", error);
+      console.error("Erro ao carregar notícias:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  // Carregar todas as notícias ao inicializar o contexto
-  useEffect(() => {
-    const fetchAllNews = async () => {
-      setLoading(true);
-      try {
-        const querySnapshot = await getDocs(collection(db, 'news'));
-        const newsArray = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setNews(newsArray);
-      } catch (error) {
-        console.error("Erro ao carregar notícias: ", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Função para filtrar notícias por categoria
+  const filterNewsByCategory = async (categoria) => {
+    setLoading(true);
+    try {
+      const decodedCategory = decodeURIComponent(categoria).toLowerCase();
+      const newsRef = collection(db, 'news');
+      const q = query(newsRef, where('category', '==', decodedCategory));
+      const querySnapshot = await getDocs(q);
+      
+      const filteredNews = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      setNews(filteredNews);
+    } catch (error) {
+      console.error("Erro ao filtrar notícias:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchAllNews();
-  }, []);
+
+  const deleteNews = async (newsId, imageUrl) => {
+    try {
+      // Primeiro, deletar a imagem do Firebase Storage, se houver
+      if (imageUrl) {
+        const imageRef = ref(storage, imageUrl); // Referência da imagem
+        await deleteObject(imageRef); // Deleta a imagem
+        console.log("Imagem deletada com sucesso!");
+      }
+  
+      // Agora, excluir o documento da notícia do Firestore
+      const newsRef = doc(db, 'news', newsId);
+      await deleteDoc(newsRef);
+      console.log("Notícia deletada com sucesso!");
+      
+      // Atualizar o estado local de notícias após a exclusão
+      setNews(prevNews => prevNews.filter(news => news.id !== newsId));
+    } catch (error) {
+      console.error("Erro ao excluir a notícia:", error);
+    }
+  };
 
   return (
-    <NewsContext.Provider value={{ news, loading, addNews, getNewsByCategory }}>
+    <NewsContext.Provider value={{
+      news,
+      loading,
+      fetchAllNews,
+      filterNewsByCategory,
+      addNews,
+      deleteNews
+    }}>
       {children}
     </NewsContext.Provider>
   );
 };
 
-// Hook para acessar o contexto em outros componentes
 export const useNews = () => useContext(NewsContext);

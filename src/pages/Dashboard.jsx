@@ -73,7 +73,6 @@ const Dashboard = () => {
         {activeSection === 'news' && (
           <div className="section">
             <AddNews /> {/* Componente para adicionar notícias */}
-            <NewsList news={news} /> {/* Componente para listar notícias */}
           </div>
         )}
 

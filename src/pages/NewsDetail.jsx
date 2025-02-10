@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Para acessar o parâmetro da URL
-import { db } from '../firebaseConfig'; // Importe o Firestore
+import { useParams } from 'react-router-dom';
+import { db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
+import { convertFromRaw } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
 import './CSS/NewsDetail.css';
 import PrincipalBanner from '../components/RenderPrincipalBanner';
 
 const NewsDetail = () => {
-    const { id } = useParams(); // Pega o ID da notícia na URL
+    const { id } = useParams();
     const [news, setNews] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    // Função para buscar a notícia detalhada
     const fetchNewsDetail = async () => {
         if (!id) {
             setError('ID da notícia não encontrado');
@@ -25,13 +26,26 @@ const NewsDetail = () => {
 
             if (newsSnapshot.exists()) {
                 const data = newsSnapshot.data();
+
+                // Converter o conteúdo do Draft.js para HTML
+                let formattedContent = "";
+                if (data.content) {
+                    try {
+                        const contentState = convertFromRaw(JSON.parse(data.content));
+                        formattedContent = stateToHTML(contentState);
+                    } catch (error) {
+                        console.error("Erro ao converter conteúdo do Draft.js:", error);
+                        formattedContent = "<p>Erro ao carregar o conteúdo formatado.</p>";
+                    }
+                }
+
                 setNews({
                     categoria: data.category,
                     title: data.title,
                     description: data.summary,
                     legenda: data.imageCaption,
-                    content: data.content,
-                    date: data.createdAt.toDate().toLocaleString(), // Formata data e hora
+                    content: formattedContent, // Conteúdo formatado
+                    date: data.createdAt.toDate().toLocaleString(),
                     imageUrl: data.imageUrl || '',
                     fonte: data.source,
                 });
@@ -47,10 +61,10 @@ const NewsDetail = () => {
     };
 
     useEffect(() => {
-        setError(''); // Limpa o erro caso a URL seja alterada
-        setNews(null); // Limpa os dados da notícia antes de uma nova requisição
+        setError('');
+        setNews(null);
         fetchNewsDetail();
-    }, [id]); // Dependência para refazer a requisição quando o id mudar
+    }, [id]);
 
     if (loading) {
         return <p>Carregando detalhes...</p>;
@@ -64,12 +78,10 @@ const NewsDetail = () => {
         <div className="news-detail">
             <div><PrincipalBanner /></div>
             <div className="news-grid-detail">
-                {/* Coluna esquerda (pode ficar vazia ou com conteúdo secundário) */}
                 <div className="coluna-esquerda-detail">
                     <p>Coluna Esquerda (Conteúdo secundário)</p>
                 </div>
 
-                {/* Coluna central (onde ficará a notícia detalhada) */}
                 <div className="coluna-central-detail">
                     {news ? (
                         <div className="news-content-detail">
@@ -81,7 +93,13 @@ const NewsDetail = () => {
                             </p>
                             {news.imageUrl && <img src={news.imageUrl} alt={news.title} />}
                             <p className="news-legenda-detail">{news.legenda}</p>                            
-                            <p className="news-content-text-detail">{news.content}</p>
+
+                            {/* Renderiza o conteúdo formatado corretamente */}
+                            <div 
+                                className="news-content-text-detail" 
+                                dangerouslySetInnerHTML={{ __html: news.content }}
+                            />
+
                             <p className="news-fonte-text-detail"><strong>Fonte:</strong> {news.fonte}</p>
                         </div>
                     ) : (
@@ -89,7 +107,6 @@ const NewsDetail = () => {
                     )}
                 </div>
 
-                {/* Coluna direita (pode ficar vazia ou com conteúdo secundário) */}
                 <div className="coluna-direita-detail">
                     <p>Coluna Direita (Conteúdo secundário)</p>
                 </div>
