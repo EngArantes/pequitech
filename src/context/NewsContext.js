@@ -1,6 +1,6 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { db, storage } from '../firebaseConfig';
-import { collection, addDoc, getDocs, query, where, Timestamp, deleteDoc, doc} from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, Timestamp, deleteDoc, doc } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 import { convertToRaw } from 'draft-js';
 
@@ -10,7 +10,7 @@ export const NewsContext = createContext();
 export const NewsProvider = ({ children }) => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
 
   // Função para adicionar notícias
   const addNews = async ({
@@ -61,32 +61,65 @@ export const NewsProvider = ({ children }) => {
         videoLink,
         source,
         createdAt: Timestamp.fromDate(new Date()),
-    });
-    
+      });
+
 
       console.log("Notícia adicionada com sucesso!");
     } catch (error) {
       console.error("Erro ao adicionar notícia: ", error);
     }
   };
-  
 
-  // Função para buscar todas as notícias
+
+  // Função para buscar todas as notícias e excluir as que passaram do tempo
   const fetchAllNews = async () => {
     setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, 'news'));
+      const now = new Date();
+      const oneMonthInMs = 30 * 24 * 60 * 60 * 1000; // 30 dias em ms
+  
       const newsArray = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
-      setNews(newsArray);
+  
+      newsArray.forEach((item) => {
+        if (item.createdAt && item.createdAt.toDate) {
+          const createdAt = item.createdAt.toDate();
+        
+  
+          if (now - createdAt >= oneMonthInMs) {
+            console.log(`Excluindo notícia: ${item.id}, pois passou de 1 mês`);
+            deleteNews(item.id, item.imageUrl);
+          }
+        }
+      });
+  
+      setNews(newsArray.filter(item => {
+        const createdAt = item.createdAt?.toDate?.();
+        return createdAt && (now - createdAt) < oneMonthInMs;
+      }));
+  
     } catch (error) {
       console.error("Erro ao carregar notícias:", error);
     } finally {
       setLoading(false);
     }
   };
+  
+  
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchAllNews();
+    }, 2592000000); // 1 mês em milissegundos (30 dias)
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+
+
 
   // Função para filtrar notícias por categoria
   const filterNewsByCategory = async (categoria) => {
@@ -96,12 +129,12 @@ export const NewsProvider = ({ children }) => {
       const newsRef = collection(db, 'news');
       const q = query(newsRef, where('category', '==', decodedCategory));
       const querySnapshot = await getDocs(q);
-      
+
       const filteredNews = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
-      
+
       setNews(filteredNews);
     } catch (error) {
       console.error("Erro ao filtrar notícias:", error);
@@ -119,12 +152,12 @@ export const NewsProvider = ({ children }) => {
         await deleteObject(imageRef); // Deleta a imagem
         console.log("Imagem deletada com sucesso!");
       }
-  
+
       // Agora, excluir o documento da notícia do Firestore
       const newsRef = doc(db, 'news', newsId);
       await deleteDoc(newsRef);
       console.log("Notícia deletada com sucesso!");
-      
+
       // Atualizar o estado local de notícias após a exclusão
       setNews(prevNews => prevNews.filter(news => news.id !== newsId));
     } catch (error) {

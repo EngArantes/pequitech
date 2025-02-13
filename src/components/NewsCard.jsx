@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";  // Correção aqui
 import { useNews } from "../context/NewsContext";  // Certifique-se de que a função de exclusão está corretamente importada
 import "./CSS/NewsCard.css";
@@ -9,15 +9,14 @@ const NewsCard = ({ id, title, summary, imageUrl, date }) => {
   const { deleteNews } = useNews();  // Certifique-se de que a função de exclusão está corretamente configurada
 
   const [showFullSummary, setShowFullSummary] = useState(false);
-  const formattedDate = date ? new Date(date).toLocaleDateString() : "Data não disponível";
+  const formattedDate = date;
+
 
   // Limitar o número de caracteres do resumo
   const maxSummaryLength = 50;
   const truncatedSummary = summary.length > maxSummaryLength ? summary.substring(0, maxSummaryLength) + '...' : summary;
 
-  const handleToggleSummary = () => {
-    setShowFullSummary(!showFullSummary);
-  };
+
 
   const handleDelete = () => {
     if (window.confirm("Tem certeza que deseja excluir esta notícia?")) {
@@ -32,13 +31,13 @@ const NewsCard = ({ id, title, summary, imageUrl, date }) => {
         <div className="card-body">
           <h2 className="card-title">{title}</h2>
           <p className="card-summary">
-            {showFullSummary ? summary : truncatedSummary}
+            {showFullSummary ? summary : truncatedSummary} <strong className="leiaMais">Leia mais...</strong>
           </p>
-          <button onClick={handleToggleSummary} className="show-more-button">
-            {showFullSummary ? "Ver Menos" : "Veja Mais"}
-          </button>
-          <span className="card-date">{formattedDate}</span>
-          
+          <span className="card-date">
+            <i className="fas fa-clock"></i>
+            {formattedDate}
+          </span>
+
           {/* Exibe o botão de deletar apenas se o usuário estiver logado */}
           {currentUser && (
             <button onClick={handleDelete} className="delete-button">

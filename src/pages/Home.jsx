@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NewsCard from '../components/NewsCard';
 import { db } from '../firebaseConfig';
-import { collection, getDocs, query, orderBy, limit, startAfter } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, limit, startAfter, where } from 'firebase/firestore';
 import './CSS/Home.css';
 import PrincipalBanner from '../components/RenderPrincipalBanner';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -18,22 +18,29 @@ const Home = () => {
   const fetchNews = async () => {
     const newsCollection = collection(db, 'news');
     const newsQuery = lastVisible
-      ? query(newsCollection, orderBy('createdAt', 'desc'), startAfter(lastVisible), limit(8))
-      : query(newsCollection, orderBy('createdAt', 'desc'), limit(8));
-
+      ? query(newsCollection, where('createdAt', '!=', null), orderBy('createdAt', 'desc'), startAfter(lastVisible), limit(8))
+      : query(newsCollection, where('createdAt', '!=', null), orderBy('createdAt', 'desc'), limit(8));
+  
     try {
       const newsSnapshot = await getDocs(newsQuery);
       const newsList = newsSnapshot.docs.map((doc) => {
         const data = doc.data();
+        const formattedDate = data.createdAt instanceof Object && "toDate" in data.createdAt
+          ? data.createdAt.toDate().toLocaleString("pt-BR", { 
+              dateStyle: "short", 
+              timeStyle: "short"  // Aqui, definimos o estilo de hora para não mostrar a sigla GMT
+            })
+          : "Data não disponível";  // Caso o createdAt não exista ou não seja um objeto com método toDate
+    
         return {
           id: doc.id,
           title: data.title,
           summary: data.summary,
-          date: data.createdAt ? data.createdAt.toDate().toLocaleDateString() : 'Data não disponível',
+          date: formattedDate,  // Passando uma string formatada sem GMT
           imageUrl: data.imageUrl || '',
         };
       });
-
+  
       // Evitar duplicação no estado
       setNews((prevNews) => {
         const uniqueNews = newsList.filter((newsItem) =>
@@ -41,11 +48,11 @@ const Home = () => {
         );
         return [...prevNews, ...uniqueNews];
       });
-
+  
       // Atualizando o último documento para carregar mais na próxima consulta
       const lastVisibleDoc = newsSnapshot.docs[newsSnapshot.docs.length - 1];
       setLastVisible(lastVisibleDoc);
-
+  
       // Se não houver mais documentos, define hasMore como false
       if (newsSnapshot.empty) {
         setHasMore(false);
@@ -57,6 +64,8 @@ const Home = () => {
       setLoading(false);
     }
   };
+  
+  
 
   useEffect(() => {
     fetchNews(); // Chama a função de busca quando o componente é montado

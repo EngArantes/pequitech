@@ -10,44 +10,64 @@ import './CSS/Home.css';
 
 const CategoryPage = () => {
   const { categoria } = useParams();
-  const { news, loading, filterNewsByCategory } = useNews();
-  const [hasMore, setHasMore] = useState(true); // Para verificar se ainda há mais notícias
+  const { news = [], loading, filterNewsByCategory } = useNews();
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (categoria) {
-      filterNewsByCategory(categoria).then(() => {
-        // Quando a categoria for filtrada, verificar se ainda há mais notícias
-        setHasMore(news.length > 0);
+      setPage(1); // Reinicia a página ao mudar de categoria
+      filterNewsByCategory(categoria, 1).then((initialNews) => {
+        setHasMore(initialNews?.length > 0);
       });
     }
-  }, [categoria, news.length]);
+  }, [categoria]);
 
-  const categoriaDecoded = decodeURIComponent(categoria).toUpperCase();
+  const fetchMoreNews = async () => {
+    const newPage = page + 1;
+    const newNews = await filterNewsByCategory(categoria, newPage);
+
+    if (!newNews || newNews.length === 0) {
+      setHasMore(false); // Não há mais notícias para carregar
+    } else {
+      setPage(newPage);
+    }
+  };
+
+  const formatDate = (createdAt) => {
+    if (createdAt instanceof Object && "toDate" in createdAt) {
+      return createdAt.toDate().toLocaleString("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "short", // Adiciona o horário e formata a data
+      });
+    }
+    return "Data não disponível";
+  };
 
   return (
     <div className="home">
       <main className="news-grid">
         <div className="coluna-esquerda"><BannerEsquerda /></div>
         <div className="coluna-central">
-          {loading ? (
+          {loading && page === 1 ? (
             <div className="spinner"></div>
           ) : (
             <InfiniteScroll
-              dataLength={news.length}
-              next={categoriaDecoded}
-              hasMore={hasMore}  // O hasMore vai ser atualizado aqui
+              dataLength={news.length || 0} // Garante que seja um número válido
+              next={fetchMoreNews}
+              hasMore={hasMore}
               loader={<div className="spinner"></div>}
               endMessage={<p style={{ textAlign: 'center' }}>Você chegou ao final!</p>}
             >
               <div className="news-container">
-                {news.map((item) => (
+                {news.map((newsItem) => (
                   <NewsCard
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    summary={item.summary}
-                    imageUrl={item.imageUrl}
-                    date={item.date}
+                    key={newsItem.id}
+                    id={newsItem.id}
+                    title={newsItem.title}
+                    summary={newsItem.summary}
+                    imageUrl={newsItem.imageUrl}
+                    date={formatDate(newsItem.createdAt)} // Formata a data conforme necessário
                   />
                 ))}
               </div>

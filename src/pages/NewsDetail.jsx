@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
@@ -13,20 +13,20 @@ const NewsDetail = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    const fetchNewsDetail = async () => {
+    const fetchNewsDetail = useCallback(async () => {
         if (!id) {
             setError('ID da notícia não encontrado');
             setLoading(false);
             return;
         }
-
+    
         try {
             const newsDoc = doc(db, 'news', id);
             const newsSnapshot = await getDoc(newsDoc);
-
+    
             if (newsSnapshot.exists()) {
                 const data = newsSnapshot.data();
-
+    
                 // Converter o conteúdo do Draft.js para HTML
                 let formattedContent = "";
                 if (data.content) {
@@ -38,7 +38,7 @@ const NewsDetail = () => {
                         formattedContent = "<p>Erro ao carregar o conteúdo formatado.</p>";
                     }
                 }
-
+    
                 setNews({
                     categoria: data.category,
                     title: data.title,
@@ -58,13 +58,14 @@ const NewsDetail = () => {
         } finally {
             setLoading(false);
         }
-    };
-
+    }, [id]);  // A função agora depende apenas de "id"
+    
     useEffect(() => {
         setError('');
         setNews(null);
         fetchNewsDetail();
-    }, [id]);
+    }, [id, fetchNewsDetail]);  // Agora, sem problemas de dependências
+    
 
     if (loading) {
         return <p>Carregando detalhes...</p>;
