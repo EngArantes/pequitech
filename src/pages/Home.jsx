@@ -25,18 +25,22 @@ const Home = () => {
       const newsSnapshot = await getDocs(newsQuery);
       const newsList = newsSnapshot.docs.map((doc) => {
         const data = doc.data();
-        const formattedDate = data.createdAt instanceof Object && "toDate" in data.createdAt
-          ? data.createdAt.toDate().toLocaleString("pt-BR", { 
-              dateStyle: "short", 
-              timeStyle: "short"  // Aqui, definimos o estilo de hora para não mostrar a sigla GMT
-            })
-          : "Data não disponível";  // Caso o createdAt não exista ou não seja um objeto com método toDate
-    
+        let formattedDate = "Data não disponível"; // Valor padrão
+  
+        // Verifica se createdAt é um Timestamp e formata
+        if (data.createdAt && data.createdAt.seconds) {
+          const dateObject = new Date(data.createdAt.seconds * 1000); // Converte de segundos para milissegundos
+          formattedDate = dateObject.toLocaleString("pt-BR", { 
+            dateStyle: "short", 
+            timeStyle: "short" 
+          });
+        }
+  
         return {
           id: doc.id,
           title: data.title,
           summary: data.summary,
-          date: formattedDate,  // Passando uma string formatada sem GMT
+          date: formattedDate, // Passando a string formatada
           imageUrl: data.imageUrl || '',
         };
       });
@@ -66,6 +70,7 @@ const Home = () => {
   };
   
   
+  
 
   useEffect(() => {
     fetchNews(); // Chama a função de busca quando o componente é montado
@@ -78,7 +83,7 @@ const Home = () => {
         <div className="coluna-esquerda"><BannerEsquerda /></div>
         <div className="coluna-central">
           {loading ? (
-            <div className="spinner">Carregando...</div>
+            <div className="spinner"></div>
           ) : (
             <InfiniteScroll
               dataLength={news.length}

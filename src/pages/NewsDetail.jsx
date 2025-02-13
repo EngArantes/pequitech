@@ -5,7 +5,10 @@ import { doc, getDoc } from 'firebase/firestore';
 import { convertFromRaw } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import './CSS/NewsDetail.css';
+import '../components/CSS/RenderRightBanner.css';
 import PrincipalBanner from '../components/RenderPrincipalBanner';
+import BannerDireita from '../components/RenderRightBanner';
+import BannerEsquerda from '../components/RenderLeftBanner';
 
 const NewsDetail = () => {
     const { id } = useParams();
@@ -80,7 +83,7 @@ const NewsDetail = () => {
             <div><PrincipalBanner /></div>
             <div className="news-grid-detail">
                 <div className="coluna-esquerda-detail">
-                    <p>Coluna Esquerda (Conteúdo secundário)</p>
+                <div className="coluna-esquerda"><BannerEsquerda /></div>
                 </div>
 
                 <div className="coluna-central-detail">
@@ -109,7 +112,7 @@ const NewsDetail = () => {
                 </div>
 
                 <div className="coluna-direita-detail">
-                    <p>Coluna Direita (Conteúdo secundário)</p>
+                <div className="coluna-esquerda"><BannerDireita /></div>
                 </div>
             </div>
         </div>

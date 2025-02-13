@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import './App.css';
@@ -9,6 +8,9 @@ import { AuthProvider } from './context/AuthContext';
 import { NewsProvider } from './context/NewsContext';
 import Footer from './components/Footer';
 import CategoryPage from './pages/CategoryPage';
+import TermosDeUsoPrivacidade from './pages/TermosDeUsoPrivacidade';
+import SobreNos from './pages/SobreNos';
+import ErrorBoundary from "./context/ErrorBoundary";
 
 const App = () => {
   return (
@@ -17,20 +19,23 @@ const App = () => {
         <Router>
           {/* Passando o setCategoriaSelecionada para o Header */}
           <Header />
+          <ErrorBoundary>
+            <Routes>
+              {/* Home */}
+              <Route path="/" element={<Home />} />
+              <Route path="/termos-de-uso-e-privacidade" element={<TermosDeUsoPrivacidade />} />
+              <Route path="/sobre-nos" element={<SobreNos />} />
 
-          <Routes>
-            {/* Home */}
-            <Route path="/" element={<Home />} />
-            
-            {/* Rota para a página de categoria */}
-            <Route path="/categoria/:categoria" element={<CategoryPage />} /> 
+              {/* Rota para a página de categoria */}
+              <Route path="/categoria/:categoria" element={<CategoryPage />} />
 
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/news/:id" element={<NewsDetail />} />
-          </Routes>
-
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/news/:id" element={<NewsDetail />} />
+            </Routes>
+          </ErrorBoundary>
           <Footer />
         </Router>
+
       </NewsProvider>
     </AuthProvider>
   );

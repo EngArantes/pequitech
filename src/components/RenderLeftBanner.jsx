@@ -35,7 +35,7 @@ const BannerLeft = () => {
   return (
     <div className="banner-left">
       <a href={banner.link || "#"} target="_blank" rel="noopener noreferrer">
-        <img src={banner.imageUrl} alt="Banner Esquerdo" className="banner-image" />
+        <img src={banner.imageUrl} alt="Banner Esquerdo" className="banner-left-img" />
       </a>
     </div>
   );

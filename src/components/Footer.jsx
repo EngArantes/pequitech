@@ -1,13 +1,33 @@
-import React from 'react';
-import '../components/CSS/Footer.css'; 
+import React from "react";
+import "../components/CSS/Footer.css";
+import { Link } from "react-router-dom";
+import { FaInstagram, FaYoutube, FaYoutubeSquare } from "react-icons/fa"; // Importando o ícone do Instagram
 
 const Footer = () => {
   return (
-    <div className="footer-container">     
-
+    <div className="footer-container">
       {/* Footer */}
       <footer className="footer-footer">
-        <p>&copy; 2025 PequiTech. Todos os direitos reservados.</p>
+        <div>
+          <Link to="/termos-de-uso-e-privacidade" className="nav-item">
+            Termos de Uso e Privacidade
+          </Link>
+          <Link to="/sobre-nos" className="nav-item">
+            Sobre Nós
+          </Link>
+        </div>
+        <div className="copyright">
+          <p>&copy; 2025 PequiTech. Todos os direitos reservados - Site feito por <strong>PublishUp!</strong>.</p>
+        </div>
+        <div>
+          <p>Siga-nos nas redes Sociais:</p>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="social-link">
+            <FaInstagram size={30} color="#fff" /> 
+          </a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="social-link">
+            <FaYoutubeSquare size={30} color="#fff" /> 
+          </a>
+        </div>
       </footer>
     </div>
   );
