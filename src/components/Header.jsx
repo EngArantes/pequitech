@@ -75,6 +75,13 @@ const Header = () => {
                   BLOCKCHAIN E CRIPTOMOEDAS
                 </Link>
                 <Link 
+                  to="/categoria/so-e-softwares" 
+                  className="sub-item" 
+                  onClick={() => handleCategoryClick('so-e-softwares')}
+                >
+                  SISTEMAS E SOFTWARES
+                </Link>
+                <Link 
                   to="/categoria/veiculos-e-tecnologias" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('veiculos-e-tecnologias')}
