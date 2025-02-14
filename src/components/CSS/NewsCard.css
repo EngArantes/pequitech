@@ -120,28 +120,19 @@
 }
 
 @media (max-width: 768px) {
+  .news-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    gap: 10px;
+  }
+
   .card {
-    width: 100%; /* 1 card por linha em telas pequenas */
-    margin: 10px 0; /* Reduz a margem */
-    gap: 5px;
-  }
-
-  .card-image {
-    height: 120px; /* Reduz a altura da imagem */
-  }
-
-  .card-title {
-    font-size: 16px; /* Mantém o tamanho do título */
-  }
-
-  .card-summary {
-    font-size: 14px; /* Mantém o tamanho da descrição */
-  }
-
-  .card-date {
-    font-size: 12px; /* Mantém o tamanho da data */
+    width: 100%; /* Para ocupar toda a célula da grid */
+    min-width: auto; /* Remove o min-width fixo */
+    margin: 5px; /* Reduz margem para melhor ajuste */
   }
 }
+
 
 @media (max-width: 480px) {
   .card {
