@@ -158,7 +158,7 @@ const Header = () => {
                   className="sub-item" 
                   onClick={() => handleCategoryClick('educacao-e-cursos')}
                 >
-                  EDducação e Cursos
+                  Educação e Cursos
                 </Link>
                 <Link 
                   to="/categoria/sustentabilidade" 
