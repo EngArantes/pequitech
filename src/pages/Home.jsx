@@ -79,6 +79,7 @@ const Home = () => {
   return (
     <div className="home">
       <div><PrincipalBanner /></div>
+      <h2>Últimas Notícias</h2>
       <main className="news-grid">
         <div className="coluna-esquerda"><BannerEsquerda /></div>
         <div className="coluna-central">
