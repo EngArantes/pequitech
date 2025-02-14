@@ -22,14 +22,14 @@ const NewsDetail = () => {
             setLoading(false);
             return;
         }
-    
+
         try {
             const newsDoc = doc(db, 'news', id);
             const newsSnapshot = await getDoc(newsDoc);
-    
+
             if (newsSnapshot.exists()) {
                 const data = newsSnapshot.data();
-    
+
                 // Converter o conteúdo do Draft.js para HTML
                 let formattedContent = "";
                 if (data.content) {
@@ -41,7 +41,7 @@ const NewsDetail = () => {
                         formattedContent = "<p>Erro ao carregar o conteúdo formatado.</p>";
                     }
                 }
-    
+
                 setNews({
                     categoria: data.category,
                     title: data.title,
@@ -50,6 +50,7 @@ const NewsDetail = () => {
                     content: formattedContent, // Conteúdo formatado
                     date: data.createdAt.toDate().toLocaleString(),
                     imageUrl: data.imageUrl || '',
+                    videoUrl: data.videoLink || '',
                     fonte: data.source,
                 });
             } else {
@@ -62,13 +63,13 @@ const NewsDetail = () => {
             setLoading(false);
         }
     }, [id]);  // A função agora depende apenas de "id"
-    
+
     useEffect(() => {
         setError('');
         setNews(null);
         fetchNewsDetail();
     }, [id, fetchNewsDetail]);  // Agora, sem problemas de dependências
-    
+
 
     if (loading) {
         return <p>Carregando detalhes...</p>;
@@ -78,12 +79,18 @@ const NewsDetail = () => {
         return <p className="error-message-detail">{error}</p>;
     }
 
+    const getYouTubeVideoId = (url) => {
+        const match = url.match(/(?:youtube\.com\/(?:.*v=|.*\/)|youtu\.be\/)([^&?/]+)/);
+        return match ? match[1] : '';
+    };
+
+
     return (
         <div className="news-detail">
             <div><PrincipalBanner /></div>
             <div className="news-grid-detail">
                 <div className="coluna-esquerda-detail">
-                <div className="coluna-esquerda"><BannerEsquerda /></div>
+                    <div className="coluna-esquerda"><BannerEsquerda /></div>
                 </div>
 
                 <div className="coluna-central-detail">
@@ -96,13 +103,29 @@ const NewsDetail = () => {
                                 <i className="fas fa-clock"></i> {news.date}
                             </p>
                             {news.imageUrl && <img src={news.imageUrl} alt={news.title} />}
-                            <p className="news-legenda-detail">{news.legenda}</p>                            
+                            <p className="news-legenda-detail">{news.legenda}</p>
 
                             {/* Renderiza o conteúdo formatado corretamente */}
-                            <div 
-                                className="news-content-text-detail" 
+                            <div
+                                className="news-content-text-detail"
                                 dangerouslySetInnerHTML={{ __html: news.content }}
                             />
+                            {/* Renderiza o vídeo do YouTube se houver um link disponível */}
+                            {news.videoUrl && (
+                                <div className="news-video-container">
+                                    <iframe
+                                        width="100%"
+                                        src={`https://www.youtube.com/embed/${getYouTubeVideoId(news.videoUrl)}`}
+                                        title="YouTube Video"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                </div>
+                            )}
+
+
+
 
                             <p className="news-fonte-text-detail"><strong>Fonte:</strong> {news.fonte}</p>
                         </div>
@@ -112,7 +135,7 @@ const NewsDetail = () => {
                 </div>
 
                 <div className="coluna-direita-detail">
-                <div className="coluna-esquerda"><BannerDireita /></div>
+                    <div className="coluna-esquerda"><BannerDireita /></div>
                 </div>
             </div>
         </div>
