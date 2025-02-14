@@ -44,12 +44,7 @@ const Modal = ({ onClose }) => {
           >
             Login
           </button>
-          <button
-            onClick={() => setActiveTab("register")}
-            className={activeTab === "register" ? "active" : ""}
-          >
-            Registrar
-          </button>
+          
         </div>
         <div className="tab-content">
           <form onSubmit={handleSubmit}>
