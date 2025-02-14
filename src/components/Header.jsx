@@ -65,42 +65,42 @@ const Header = () => {
                   className="sub-item" 
                   onClick={() => handleCategoryClick('inteligencia-artificial')}
                 >
-                  INTELIGÊNCIA ARTIFICIAL
+                  Inteligência Artificial
                 </Link>
                 <Link 
                   to="/categoria/blockchain-e-criptomoedas" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('blockchain-e-criptomoedas')}
                 >
-                  BLOCKCHAIN E CRIPTOMOEDAS
+                  Blockchain e Criptomoedas
                 </Link>
                 <Link 
                   to="/categoria/so-e-softwares" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('so-e-softwares')}
                 >
-                  SISTEMAS E SOFTWARES
+                  Sistemas e Softwares
                 </Link>
                 <Link 
                   to="/categoria/veiculos-e-tecnologias" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('veiculos-e-tecnologias')}
                 >
-                  VEÍCULOS E TECNOLOGIAS
+                  Veículos e Tecnologias
                 </Link>
                 <Link 
                   to="/categoria/jogos" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('jogos')}
                 >
-                  JOGOS
+                  Jogos
                 </Link>
                 <Link 
                   to="/categoria/ciencia-e-espaco" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('ciencia-e-espaco')}
                 >
-                  CIÊNCIA E ESPAÇO
+                  Ciência e Espaço
                 </Link>
               </div>
             </div>
@@ -115,21 +115,21 @@ const Header = () => {
                   className="sub-item" 
                   onClick={() => handleCategoryClick('cinema')}
                 >
-                  CINEMA
+                  Cinema
                 </Link>
                 <Link 
                   to="/categoria/internet" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('internet')}
                 >
-                  INTERNET
+                  Internet
                 </Link>
                 <Link 
                   to="/categoria/redes-sociais" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('redes-sociais')}
                 >
-                  REDES SOCIAIS
+                  Redes Sociais
                 </Link>
               </div>
             </div>
@@ -144,63 +144,63 @@ const Header = () => {
                   className="sub-item" 
                   onClick={() => handleCategoryClick('produtos-e-reviews')}
                 >
-                  PRODUTOS E REVIEWS
+                  Produtos e Reviews
                 </Link>
                 <Link 
                   to="/categoria/saude" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('saude')}
                 >
-                  SAÚDE
+                  Saúde
                 </Link>
                 <Link 
                   to="/categoria/educacao-e-cursos" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('educacao-e-cursos')}
                 >
-                  EDUCAÇÃO E CURSOS
+                  EDducação e Cursos
                 </Link>
                 <Link 
                   to="/categoria/sustentabilidade" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('sustentabilidade')}
                 >
-                  SUSTENTABILIDADE
+                  Sustentabilidade
                 </Link>
                 <Link 
                   to="/categoria/carreira-e-empregos" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('carreira-e-empregos')}
                 >
-                  CARREIRA E EMPREGOS
+                  Carreira e Empregos
                 </Link>
                 <Link 
                   to="/categoria/estilo-de-vida" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('estilo-de-vida')}
                 >
-                  ESTILO DE VIDA
+                  Estilo de Vida
                 </Link>
                 <Link 
                   to="/categoria/seguranca-digital" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('seguranca-digital')}
                 >
-                  SEGURANÇA DIGITAL
+                  Segurança Digital
                 </Link>
                 <Link 
                   to="/categoria/negocios-e-financas" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('negocios-e-financas')}
                 >
-                  NEGÓCIOS E FINANÇAS
+                  Negócios e Finanças
                 </Link>
                 <Link 
                   to="/categoria/natureza" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('natureza')}
                 >
-                  NATUREZA
+                  Natureza
                 </Link>
               </div>
             </div>
