@@ -152,31 +152,52 @@
   }
 }
 
-/* 🔹 Responsividade */
+/* Responsividade */
 @media (max-width: 1024px) {
   .menu-toggle {
     display: block;
+    width: 80px;
+    height: 80px;
   }
 
   .menu-items {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 123px;
+    top: 60px; /* Ajuste conforme o espaço disponível */
     left: 0;
-    width: 50%;
-    background: rgba(0, 0, 0, 0.9);
-    padding: 20px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 10px;
     z-index: 999;
   }
-
-  .menu-items.open {
+  .nav-links {
     display: flex;
+    align-items: center;
+    justify-content: space-between; /* Adiciona espaço entre logo e menu */
+    position: relative;
+    width: 100%; /* Garante que o container ocupe toda a largura disponível */
+  }
+  
+  
+  .menu-items.open {
+    display: flex; /* Exibe o menu quando a classe 'open' é adicionada */
   }
 
   .nav-item {
     padding: 10px 0;
     text-align: center;
+    width: 100%;
+  }
+
+  .mega-menu-content {
+    position: static;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .mega-menu-column {
     width: 100%;
   }
 }

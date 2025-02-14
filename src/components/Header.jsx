@@ -22,22 +22,25 @@ const Header = () => {
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    console.log("Menu toggled:", !isMenuOpen); // Adicione um log para verificar o estado
+    setIsMenuOpen(prevState => !prevState); // Use uma função de atualização de estado mais segura
   };
-
-  const handleCategoryClick = (categoria) => {
-    toggleMenu();
-    if (news.length === 0 || news[0].category !== categoria) {
-      filterNewsByCategory(categoria.toLowerCase());
+  
+  const closeMegaMenu = (e) => {
+    if (!e.target.closest('.header-container')) { // Verifique se o clique foi fora do header
+      setIsMenuOpen(false); // Fecha o menu se o clique for fora
     }
   };
   
 
-  const closeMegaMenu = (e) => {
-    if (!e.target.closest('.mega-menu')) {
-      setIsMenuOpen(false);
+  const handleCategoryClick = (categoria) => {
+    toggleMenu(); // Fecha o menu ao clicar em uma categoria
+    if (news.length === 0 || news[0].category !== categoria) {
+      filterNewsByCategory(categoria.toLowerCase());
     }
   };
+
+  
 
   return (
     <header className="header-container" onClick={closeMegaMenu}>
