@@ -114,6 +114,7 @@ const AddNews = () => {
           <option value="sustentabilidade">SUSTENTABILIDADE</option>
           <option value="seguranca-digital">SEGURANÇA DIGITAL</option>
           <option value="negocios-e-financas">NEGÓCIOS E FINANÇAS</option>
+          <option value="natureza">NATUREZA</option>
         </select>
 
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título da Notícia" required />
