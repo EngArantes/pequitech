@@ -115,6 +115,7 @@ const AddNews = () => {
           <option value="seguranca-digital">SEGURANÇA DIGITAL</option>
           <option value="negocios-e-financas">NEGÓCIOS E FINANÇAS</option>
           <option value="natureza">NATUREZA</option>
+          <option value="blockchain-e-criptomoedas">BLOCKCHAIN E CRIPTOMOEDAS</option>
         </select>
 
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título da Notícia" required />

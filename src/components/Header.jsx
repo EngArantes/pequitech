@@ -68,6 +68,13 @@ const Header = () => {
                   INTELIGÊNCIA ARTIFICIAL
                 </Link>
                 <Link 
+                  to="/categoria/blockchain-e-criptomoedas" 
+                  className="sub-item" 
+                  onClick={() => handleCategoryClick('blockchain-e-criptomoedas')}
+                >
+                  BLOCKCHAIN E CRIPTOMOEDAS
+                </Link>
+                <Link 
                   to="/categoria/veiculos-e-tecnologias" 
                   className="sub-item" 
                   onClick={() => handleCategoryClick('veiculos-e-tecnologias')}
@@ -180,6 +187,13 @@ const Header = () => {
                   onClick={() => handleCategoryClick('negocios-e-financas')}
                 >
                   NEGÓCIOS E FINANÇAS
+                </Link>
+                <Link 
+                  to="/categoria/natureza" 
+                  className="sub-item" 
+                  onClick={() => handleCategoryClick('natureza')}
+                >
+                  NATUREZA
                 </Link>
               </div>
             </div>
