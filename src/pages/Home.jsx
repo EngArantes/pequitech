@@ -109,15 +109,21 @@ const Home = () => {
                       date={item.date}
                     />
 
-                    {/* Renderiza o banner após o terceiro card (na quarta linha) */}
+                    {/* Renderiza o banner do meio após o 12º card */}
                     {(index + 1) % 12 === 0 && (
-                      <div key={`banner-${index}`} className="banner-meio-cards">
+                      <div key={`banner-meio-${index}`} className="banner-meio-cards">
                         <BannerMeioCards />
+                      </div>
+                    )}
+
+                    {/* Renderiza o outro banner após o 24º card */}
+                    {(index + 1) % 24 === 0 && (
+                      <div key={`banner-outro-${index}`} className="banner-outro-cards">
+                        Outro banner qualquer
                       </div>
                     )}
                   </>
                 ))}
-
               </div>
 
             </InfiniteScroll>
