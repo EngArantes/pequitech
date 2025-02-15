@@ -7,6 +7,7 @@ import ManageUsers from "../components/ManageUsers"; // Componente para gerencia
 import Settings from "../components/Settings"; // Componente para configurações
 import AddBanners from '../components/AddPrincipalBanner';
 import AddBannersLaterais from '../components/AddLateraisBanner';
+import AddBannerMeioCard from '../components/AddBannerMeioCards';
 
 import "./CSS/Dashboard.css";
 
@@ -80,6 +81,7 @@ const Dashboard = () => {
           <div className="section-banners">
             <AddBanners /> {/* Componente para gerenciar banners */}
             <AddBannersLaterais />
+            <AddBannerMeioCard />
           </div>
          
         )}

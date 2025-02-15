@@ -1,0 +1,50 @@
+.banner-mid {
+    width: 100%; /* Ocupa toda a largura disponível */
+    display: flex;
+    justify-content: center; /* Centraliza o banner horizontalmente */
+    margin: 20px 0; /* Espaçamento acima e abaixo */
+  }
+  
+  .banner-mid a {
+    display: block;
+    width: 100%;
+    max-width: 1000px; /* Define um limite máximo para o banner */
+  }
+  
+  .banner-mid-img {
+    width: 100%; /* Faz a imagem ocupar toda a largura disponível */
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 8px; /* Borda arredondada para um visual moderno */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .banner-mid-img:hover {
+    transform: scale(1.03); /* Efeito de zoom ao passar o mouse */
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .banner-mid {
+      margin: 15px 0;
+    }
+  
+    .banner-mid a {
+      max-width: 90%; /* Em telas menores, reduz a largura */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .banner-mid {
+      margin: 10px 0;
+    }
+  
+    .banner-mid a {
+      max-width: 100%;
+    }
+  
+    .banner-mid-img {
+      border-radius: 5px; /* Reduz um pouco o arredondamento em telas pequenas */
+    }
+  }
+  

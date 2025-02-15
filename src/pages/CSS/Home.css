@@ -98,3 +98,13 @@
     display: none; /* Oculta as colunas laterais em telas pequenas */
   }
 }
+
+.banner-meio-cards {
+  width: 100%;
+  grid-column: 1 / -1; /* Faz o banner ocupar toda a linha */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
