@@ -4,6 +4,8 @@ import { db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import { convertFromRaw } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
+import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
+import { FacebookIcon, TwitterIcon, WhatsappIcon } from 'react-share';
 import './CSS/NewsDetail.css';
 import '../components/CSS/RenderRightBanner.css';
 import PrincipalBanner from '../components/RenderPrincipalBanner';
@@ -15,6 +17,8 @@ const NewsDetail = () => {
     const [news, setNews] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const currentUrl = window.location.href;
+
 
     const fetchNewsDetail = useCallback(async () => {
         if (!id) {
@@ -30,7 +34,6 @@ const NewsDetail = () => {
             if (newsSnapshot.exists()) {
                 const data = newsSnapshot.data();
 
-                // Converter o conteúdo do Draft.js para HTML
                 let formattedContent = "";
                 if (data.content) {
                     try {
@@ -47,7 +50,7 @@ const NewsDetail = () => {
                     title: data.title,
                     description: data.summary,
                     legenda: data.imageCaption,
-                    content: formattedContent, // Conteúdo formatado
+                    content: formattedContent,
                     date: data.createdAt.toDate().toLocaleString(),
                     imageUrl: data.imageUrl || '',
                     videoUrl: data.videoLink || '',
@@ -62,14 +65,13 @@ const NewsDetail = () => {
         } finally {
             setLoading(false);
         }
-    }, [id]);  // A função agora depende apenas de "id"
+    }, [id]);
 
     useEffect(() => {
         setError('');
         setNews(null);
         fetchNewsDetail();
-    }, [id, fetchNewsDetail]);  // Agora, sem problemas de dependências
-
+    }, [id, fetchNewsDetail]);
 
     if (loading) {
         return <p>Carregando detalhes...</p>;
@@ -84,6 +86,7 @@ const NewsDetail = () => {
         return match ? match[1] : '';
     };
 
+    const shareUrl = window.location.href; // Obtém a URL atual da notícia
 
     return (
         <div className="news-detail">
@@ -105,12 +108,11 @@ const NewsDetail = () => {
                             {news.imageUrl && <img src={news.imageUrl} alt={news.title} />}
                             <p className="news-legenda-detail">{news.legenda}</p>
 
-                            {/* Renderiza o conteúdo formatado corretamente */}
                             <div
                                 className="news-content-text-detail"
                                 dangerouslySetInnerHTML={{ __html: news.content }}
                             />
-                            {/* Renderiza o vídeo do YouTube se houver um link disponível */}
+
                             {news.videoUrl && (
                                 <div className="news-video-container">
                                     <iframe
@@ -124,10 +126,24 @@ const NewsDetail = () => {
                                 </div>
                             )}
 
-
-
-
                             <p className="news-fonte-text-detail"><strong>Fonte:</strong> {news.fonte}</p>
+
+                            {/* Botões de Compartilhamento */}
+                            <div className="share-buttons">
+                                <p>Compartilhe nas redes sociais:</p>
+                                <FacebookShareButton url={currentUrl} quote={news.title}>
+                                    <FacebookIcon size={32} round />
+                                </FacebookShareButton>
+
+                                <TwitterShareButton url={currentUrl} title={news.title}>
+                                    <TwitterIcon size={32} round />
+                                </TwitterShareButton>
+
+                                <WhatsappShareButton url={currentUrl} title={news.title} separator=" - ">
+                                    <WhatsappIcon size={32} round />
+                                </WhatsappShareButton>
+                            </div>
+
                         </div>
                     ) : (
                         <p>Nenhuma notícia encontrada.</p>

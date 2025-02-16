@@ -115,6 +115,19 @@
     color: red;
 }
 
+.share-buttons {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.share-buttons p {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+
 
 /* 📌 Responsividade para Tablets (≤ 992px) */
 @media (max-width: 992px) {
