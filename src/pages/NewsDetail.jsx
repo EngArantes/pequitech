@@ -4,7 +4,7 @@ import { db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import { convertFromRaw } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
-import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon } from 'react-share';
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TelegramShareButton,  TelegramIcon, WhatsappShareButton, WhatsappIcon } from 'react-share';
 import { FaXTwitter } from "react-icons/fa6";
 
 
@@ -156,6 +156,10 @@ const NewsDetail = () => {
                             <WhatsappShareButton url={currentUrl} title={news.title} separator=" - ">
                                 <WhatsappIcon size={32} round />
                             </WhatsappShareButton>
+
+                            <TelegramShareButton url={currentUrl} title={news.title} separator=" - ">
+                                <TelegramIcon size={32} round />
+                            </TelegramShareButton>
                         </div>
                     )}
 
