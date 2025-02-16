@@ -12,6 +12,13 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { currentUser, logout } = useAuth();
   const { news, filterNewsByCategory } = useNews();
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const toggleDropdown = (menu) => {
+    setOpenDropdown(openDropdown === menu ? null : menu);
+  };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -21,26 +28,18 @@ const Header = () => {
     logout();
   };
 
-  const toggleMenu = () => {
-    console.log("Menu toggled:", !isMenuOpen); // Adicione um log para verificar o estado
-    setIsMenuOpen(prevState => !prevState); // Use uma função de atualização de estado mais segura
-  };
-  
   const closeMegaMenu = (e) => {
-    if (!e.target.closest('.header-container')) { // Verifique se o clique foi fora do header
-      setIsMenuOpen(false); // Fecha o menu se o clique for fora
+    if (!e.target.closest('.header-container')) {
+      setIsMenuOpen(false);
     }
   };
-  
 
   const handleCategoryClick = (categoria) => {
-    toggleMenu(); // Fecha o menu ao clicar em uma categoria
+    toggleMenu();
     if (news.length === 0 || news[0].category !== categoria) {
       filterNewsByCategory(categoria.toLowerCase());
     }
   };
-
-  
 
   return (
     <header className="header-container" onClick={closeMegaMenu}>
@@ -57,159 +56,159 @@ const Header = () => {
           <Link to="/" className="nav-item" onClick={toggleMenu}>HOME</Link>
 
           <div className="mega-menu">
-            <span className="nav-item">TECNOLOGIAS ▼</span>
-            <div className="mega-menu-content">
-              <div className="mega-menu-column">
-                <Link 
-                  to="/categoria/inteligencia-artificial" 
-                  className="sub-item" 
+            <span className="nav-item" onClick={() => toggleDropdown('tecnologias')}>Tecnologias ▼</span>
+            <div className={`mega-menu-content ${openDropdown === 'tecnologias' ? 'show' : ''}`}>
+              
+                <Link
+                  to="/categoria/inteligencia-artificial"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('inteligencia-artificial')}
                 >
                   Inteligência Artificial
                 </Link>
-                <Link 
-                  to="/categoria/blockchain-e-criptomoedas" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/blockchain-e-criptomoedas"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('blockchain-e-criptomoedas')}
                 >
                   Blockchain e Criptomoedas
                 </Link>
-                <Link 
-                  to="/categoria/so-e-softwares" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/so-e-softwares"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('so-e-softwares')}
                 >
                   Sistemas e Softwares
                 </Link>
-                <Link 
-                  to="/categoria/veiculos-e-tecnologias" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/veiculos-e-tecnologias"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('veiculos-e-tecnologias')}
                 >
                   Veículos e Tecnologias
                 </Link>
-                <Link 
-                  to="/categoria/jogos" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/jogos"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('jogos')}
                 >
                   Jogos
                 </Link>
-                <Link 
-                  to="/categoria/ciencia-e-espaco" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/ciencia-e-espaco"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('ciencia-e-espaco')}
                 >
                   Ciência e Espaço
                 </Link>
-              </div>
+              
             </div>
           </div>
 
           <div className="mega-menu">
-            <span className="nav-item">ENTRETENIMENTO ▼</span>
-            <div className="mega-menu-content">
-              <div className="mega-menu-column">
-                <Link 
-                  to="/categoria/cinema" 
-                  className="sub-item" 
+          <span className="nav-item" onClick={() => toggleDropdown('entretenimento')}>Entretenimento ▼</span>
+          <div className={`mega-menu-content ${openDropdown === 'entretenimento' ? 'show' : ''}`}>
+              
+                <Link
+                  to="/categoria/cinema"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('cinema')}
                 >
                   Cinema
                 </Link>
-                <Link 
-                  to="/categoria/internet" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/internet"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('internet')}
                 >
                   Internet
                 </Link>
-                <Link 
-                  to="/categoria/redes-sociais" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/redes-sociais"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('redes-sociais')}
                 >
                   Redes Sociais
                 </Link>
-              </div>
+              
             </div>
           </div>
 
           <div className="mega-menu">
-            <span className="nav-item">MAIS ▼</span>
-            <div className="mega-menu-content">
-              <div className="mega-menu-column">
-              <Link 
-                  to="/categoria/agronegocios" 
-                  className="sub-item" 
+            <span className="nav-item" onClick={() => toggleDropdown('mais')}>Outras Categorias ▼</span>
+            <div className={`mega-menu-content ${openDropdown === 'mais' ? 'show' : ''}`}>
+              
+                <Link
+                  to="/categoria/agronegocios"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('agronegocios')}
                 >
                   Agronegócios
                 </Link>
-                <Link 
-                  to="/categoria/produtos-e-reviews" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/produtos-e-reviews"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('produtos-e-reviews')}
                 >
                   Produtos e Reviews
                 </Link>
-                <Link 
-                  to="/categoria/saude" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/saude"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('saude')}
                 >
                   Saúde
                 </Link>
-                <Link 
-                  to="/categoria/educacao-e-cursos" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/educacao-e-cursos"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('educacao-e-cursos')}
                 >
                   Educação e Cursos
                 </Link>
-                <Link 
-                  to="/categoria/sustentabilidade" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/sustentabilidade"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('sustentabilidade')}
                 >
                   Sustentabilidade
                 </Link>
-                <Link 
-                  to="/categoria/carreira-e-empregos" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/carreira-e-empregos"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('carreira-e-empregos')}
                 >
                   Carreira e Empregos
                 </Link>
-                <Link 
-                  to="/categoria/estilo-de-vida" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/estilo-de-vida"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('estilo-de-vida')}
                 >
                   Estilo de Vida
                 </Link>
-                <Link 
-                  to="/categoria/seguranca-digital" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/seguranca-digital"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('seguranca-digital')}
                 >
                   Segurança Digital
                 </Link>
-                <Link 
-                  to="/categoria/negocios-e-financas" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/negocios-e-financas"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('negocios-e-financas')}
                 >
                   Negócios e Finanças
                 </Link>
-                <Link 
-                  to="/categoria/natureza" 
-                  className="sub-item" 
+                <Link
+                  to="/categoria/natureza"
+                  className="sub-item"
                   onClick={() => handleCategoryClick('natureza')}
                 >
                   Natureza
                 </Link>
-              </div>
+              
             </div>
           </div>
 
