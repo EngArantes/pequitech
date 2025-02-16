@@ -8,7 +8,7 @@ const Footer = () => {
     <div className="footer-container">
       {/* Footer */}
       <footer className="footer-footer">
-        <div>
+        <div className="links-termos-sobre">
           <Link to="/termos-de-uso-e-privacidade" className="nav-items">
             Termos de Uso e Privacidade
           </Link>

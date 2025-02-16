@@ -29,6 +29,7 @@
   display: inline-block;
 }
 
-.nav-items{
+.links-termos-sobre .nav-items{
   color: white;
+  text-decoration: none;
 }
