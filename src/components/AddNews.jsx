@@ -110,6 +110,7 @@ const AddNews = () => {
           <option value="redes-sociais">REDES SOCIAIS</option>
           <option value="produtos-e-reviews">PRODUTOS E REVIEWS</option>
           <option value="saude">SAÚDE</option>
+          <option value="agronegocios">AGRONEGÓCIOS</option>
           <option value="educacao-e-cursos">EDUCAÇÃO E CURSOS</option>
           <option value="sustentabilidade">SUSTENTABILIDADE</option>
           <option value="seguranca-digital">SEGURANÇA DIGITAL</option>

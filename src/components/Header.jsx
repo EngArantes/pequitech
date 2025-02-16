@@ -139,6 +139,13 @@ const Header = () => {
             <span className="nav-item">MAIS ▼</span>
             <div className="mega-menu-content">
               <div className="mega-menu-column">
+              <Link 
+                  to="/categoria/agronegocios" 
+                  className="sub-item" 
+                  onClick={() => handleCategoryClick('agronegocios')}
+                >
+                  Agronegócios
+                </Link>
                 <Link 
                   to="/categoria/produtos-e-reviews" 
                   className="sub-item" 
