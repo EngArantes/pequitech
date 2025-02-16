@@ -143,7 +143,7 @@ const NewsDetail = () => {
                     {/* Botões de Compartilhamento */}
                     {news && news.title && (
                         <div className="share-buttons">
-                            <p>Compartilhe nas redes sociais:</p>
+                            <p>Compartilhe:</p>
                             <FacebookShareButton url={currentUrl} quote={news.title}>
                                 <FacebookIcon size={32} round />
                             </FacebookShareButton>
