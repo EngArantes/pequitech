@@ -161,6 +161,7 @@
   .header-container {
     justify-content: space-between; /* Altera para space-between */
     padding: 10px;
+    width: 100%;
   }
 
   .nav-links {
