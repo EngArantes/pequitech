@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import AddNews from "../components/AddNews"; // Componente para adicionar notícias
-import NewsList from "../components/NewsList"; // Componente para exibir notícias
 import ManageUsers from "../components/ManageUsers"; // Componente para gerenciar usuários
 import Settings from "../components/Settings"; // Componente para configurações
 import AddBanners from '../components/AddPrincipalBanner';
@@ -16,7 +15,6 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const [activeSection, setActiveSection] = useState('news'); // Seção ativa (padrão 'news')
-  const [news, setNews] = useState([]);
 
   // Redireciona se o usuário não estiver autenticado
   useEffect(() => {
@@ -25,18 +23,7 @@ const Dashboard = () => {
     }
   }, [currentUser, navigate]);
 
-  // Carregar as notícias do Firestore
-  useEffect(() => {
-    const fetchNews = async () => {
-      // Exemplo de chamada para buscar notícias (pode ser adaptado conforme necessário)
-      const newsData = [
-        { title: 'Notícia 1', content: 'Conteúdo da notícia 1' },
-        { title: 'Notícia 2', content: 'Conteúdo da notícia 2' }
-      ];
-      setNews(newsData);
-    };
-    fetchNews();
-  }, []);
+  
 
   return (
     <div className="dashboard-container">

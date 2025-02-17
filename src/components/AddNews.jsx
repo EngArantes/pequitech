@@ -133,7 +133,7 @@ const AddNews = () => {
           <button type="button" onClick={() => handleFormatChange('BOLD')}>B</button>
           <button type="button" onClick={() => handleFormatChange('ITALIC')}>I</button>
           <button type="button" onClick={() => handleFormatChange('UNDERLINE')}>U</button>
-          <button type="button" onClick={toggleHighlight}>Destacar</button>
+          <button className='buttonDestacar' type="button" onClick={toggleHighlight}>Destacar</button>
 
           <select
             onChange={(e) => changeFontSize(Number(e.target.value))}

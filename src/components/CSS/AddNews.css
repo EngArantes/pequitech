@@ -92,3 +92,11 @@
     background-color: black;
     text-align: center;
 }
+
+@media (max-width: 768px) {
+.buttonDestacar{
+    width: 100%;
+}
+
+
+}
