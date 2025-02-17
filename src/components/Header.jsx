@@ -19,6 +19,7 @@ const Header = () => {
   const toggleDropdown = (menu) => {
     setOpenDropdown(openDropdown === menu ? null : menu);
   };
+  
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -35,11 +36,11 @@ const Header = () => {
   };
 
   const handleCategoryClick = (categoria) => {
-    toggleMenu();
-    if (news.length === 0 || news[0].category !== categoria) {
-      filterNewsByCategory(categoria.toLowerCase());
-    }
+    setTimeout(() => setIsMenuOpen(false), 100); // Pequeno atraso para evitar glitches visuais
+    filterNewsByCategory(categoria.toLowerCase());
   };
+  
+  
 
   return (
     <header className="header-container" onClick={closeMegaMenu}>
