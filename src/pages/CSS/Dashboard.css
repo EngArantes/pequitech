@@ -5,12 +5,12 @@
   font-family: 'Arial', sans-serif;
 }
 
-/* Estilos da Sidebar */
+/* Sidebar padrão (para telas maiores) */
 .sidebar {
   width: 250px;
-  background: linear-gradient(145deg, #388e3c, #1b5e20); /* Gradiente verde metálico */
+  background: linear-gradient(145deg, #388e3c, #1b5e20);
   color: white;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1); /* Sombra lateral para profundidade */
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@
   font-size: 24px;
   font-weight: bold;
   color: white;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Sombra no texto para contraste */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-item {
@@ -36,47 +36,89 @@
   padding: 10px 16px;
   width: 100%;
   border-radius: 4px;
-  transition: backgroundColor 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 10px; /* Espaço entre ícone e texto */
+  gap: 10px;
 }
 
 /* Estilos para o item ativo na sidebar */
 .sidebar-item.active {
   background-color: rgba(255, 255, 255, 0.3);
   font-weight: bold;
-  transform: translateX(10px); /* Efeito de deslocamento para destacar */
+  transform: translateX(10px);
 }
 
-/* Estilo de hover não será aplicado ao item ativo */
-.sidebar-item.active:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: translateX(10px); /* Mantém o efeito de deslocamento */
+/* Efeito hover */
+.sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-
-/* Ícones (opcional, se usar uma biblioteca como FontAwesome) */
+/* Ícones (opcional, se usar FontAwesome) */
 .sidebar-item i {
   font-size: 18px;
 }
 
-/* Estilos do conteúdo principal */
+/* Navbar no topo para dispositivos móveis */
+.navbar {
+  display: none;
+  width: 100%;
+  background: linear-gradient(145deg, #388e3c, #1b5e20);
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 50;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.navbar button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar button i {
+  font-size: 18px;
+}
+
+/* Ajustando o conteúdo para não ficar escondido pela navbar */
 .dashboard-content {
   flex-grow: 1;
   background-color: #f4f4f4;
   overflow-y: auto;
+  padding: 20px;
+  padding-top: 50px; /* Para evitar sobreposição com a navbar */
 }
 
-.dashboard-content h2 {
-  font-size: 32px;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.section {
+/* Seções do dashboard */
+.section,
+.section-banners {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Responsivo: Esconder sidebar e mostrar navbar no mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .navbar {
+    display: flex;
+  }
 }

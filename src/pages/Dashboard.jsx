@@ -68,6 +68,22 @@ const Dashboard = () => {
         </button>
       </div>
 
+      {/* Navbar para dispositivos móveis */}
+      <div className="navbar">
+        <button onClick={() => setActiveSection('news')}>
+          <i className="fas fa-newspaper"></i> Notícias
+        </button>
+        <button onClick={() => setActiveSection('add-banners')}>
+          <i className="fas fa-image"></i> Banners
+        </button>
+        <button onClick={() => setActiveSection('users')}>
+          <i className="fas fa-users"></i> Usuários
+        </button>
+        <button onClick={() => setActiveSection('settings')}>
+          <i className="fas fa-cog"></i> Configurações
+        </button>
+      </div>
+
 
       <div className="dashboard-content">
 
