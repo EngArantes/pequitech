@@ -17,8 +17,9 @@ const Header = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const toggleDropdown = (menu) => {
-    setOpenDropdown(openDropdown === menu ? null : menu);
+    setOpenDropdown((prevMenu) => (prevMenu === menu ? null : menu));
   };
+  
   
 
   const toggleModal = () => {
