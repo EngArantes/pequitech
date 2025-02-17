@@ -59,18 +59,17 @@
   font-size: 18px;
 }
 
-/* Navbar no topo para dispositivos móveis */
+/* Navbar no topo (inicialmente oculta e visível apenas em telas menores) */
 .navbar {
   display: none;
   width: 100%;
   background: linear-gradient(145deg, #388e3c, #1b5e20);
   color: white;
-  padding: 15px;
-  display: flex;
+  padding: 10px;
   justify-content: space-around;
   align-items: center;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-  position: fixed;
+  position: absolute;
   top: 50;
   left: 0;
   right: 0;
@@ -93,13 +92,12 @@
   font-size: 18px;
 }
 
-/* Ajustando o conteúdo para não ficar escondido pela navbar */
+/* Ajustando o conteúdo para não ficar escondido pela navbar no mobile */
 .dashboard-content {
   flex-grow: 1;
   background-color: #f4f4f4;
   overflow-y: auto;
   padding: 20px;
-  padding-top: 50px; /* Para evitar sobreposição com a navbar */
 }
 
 /* Seções do dashboard */
@@ -112,7 +110,7 @@
   margin-bottom: 20px;
 }
 
-/* Responsivo: Esconder sidebar e mostrar navbar no mobile */
+/* Responsivo: Esconder sidebar e mostrar navbar apenas em telas menores */
 @media (max-width: 768px) {
   .sidebar {
     display: none;
@@ -120,5 +118,9 @@
 
   .navbar {
     display: flex;
+  }
+
+  .dashboard-content {
+    padding-top: 60px; /* Para evitar sobreposição com a navbar */
   }
 }
