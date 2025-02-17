@@ -97,6 +97,9 @@
 .buttonDestacar{
     width: 100%;
 }
-
+.toolbarAIU{
+    display: flex;
+    justify-content: space-between;
+}
 
 }

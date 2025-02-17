@@ -130,9 +130,11 @@ const AddNews = () => {
         <input type="text" value={imageCaption} onChange={(e) => setImageCaption(e.target.value)} placeholder="Legenda da Imagem" />
 
         <div className="toolbar">
+          <div className='toolbarAIU'>
           <button type="button" onClick={() => handleFormatChange('BOLD')}>B</button>
           <button type="button" onClick={() => handleFormatChange('ITALIC')}>I</button>
           <button type="button" onClick={() => handleFormatChange('UNDERLINE')}>U</button>
+          </div>
           <button className='buttonDestacar' type="button" onClick={toggleHighlight}>Destacar</button>
 
           <select
