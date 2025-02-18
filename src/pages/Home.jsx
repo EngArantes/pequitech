@@ -8,6 +8,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import BannerDireita from '../components/RenderRightBanner';
 import BannerEsquerda from '../components/RenderLeftBanner';
 import BannerMeioCards from '../components/RenderBannerMeioCards';
+import BannerPrincipal from '../components/RenderPrincipalBanner'
 
 const Home = () => {
   const [news, setNews] = useState([]); // Para armazenar as notícias
@@ -115,13 +116,7 @@ const Home = () => {
                         <BannerMeioCards />
                       </div>
                     )}
-
-                    {/* Renderiza o outro banner após o 24º card */}
-                    {(index + 1) % 24 === 0 && (
-                      <div key={`banner-outro-${index}`} className="banner-outro-cards">
-                        Outro banner qualquer
-                      </div>
-                    )}
+                    
                   </>
                 ))}
               </div>
