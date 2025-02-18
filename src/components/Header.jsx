@@ -210,6 +210,13 @@ const Header = () => {
                 >
                   Natureza
                 </Link>
+                <Link
+                  to="/categoria/fatos"
+                  className="sub-item"
+                  onClick={() => handleCategoryClick('fatos')}
+                >
+                  Fatos
+                </Link>
               
             </div>
           </div>
