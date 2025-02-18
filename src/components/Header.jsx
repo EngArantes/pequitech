@@ -216,8 +216,7 @@ const Header = () => {
                   onClick={() => handleCategoryClick('fatos')}
                 >
                   Fatos
-                </Link>
-              
+                </Link>              
             </div>
           </div>
 
