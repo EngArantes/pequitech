@@ -25,7 +25,7 @@ const Footer = () => {
         </div>
         <div>
           <p>Siga-nos nas redes Sociais:</p>
-          <a href="https://www.instagram.com/PequiTech" target="_blank" rel="noopener noreferrer" className="social-link">
+          <a href="https://www.instagram.com/pequi_tech/" target="_blank" rel="noopener noreferrer" className="social-link">
             <FaInstagram size={30} color="#fff" />
           </a>
           <a href="https://www.youtube.com/@PequiTech" target="_blank" rel="noopener noreferrer" className="social-link">
