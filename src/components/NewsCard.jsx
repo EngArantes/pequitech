@@ -31,7 +31,7 @@ const NewsCard = ({ id, title, summary, imageUrl, date }) => {
         <div className="card-body">
           <h2 className="card-title">{title}</h2>
           <p className="card-summary">
-            {showFullSummary ? summary : truncatedSummary} <strong className="leiaMais">Leia mais...</strong>
+            {showFullSummary ? summary : truncatedSummary} <strong className="leiaMais">Veja mais.</strong>
           </p>
           <span className="card-date">
             <i className="fas fa-clock"></i>

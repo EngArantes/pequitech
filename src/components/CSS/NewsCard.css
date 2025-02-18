@@ -42,7 +42,7 @@
 
 .card-summary {
   font-size: 14px; /* Reduz o tamanho da descrição */
-  color: #666;
+  color: #7c7c7c;
   margin-bottom: 8px;
   line-height: 1.4;
 }
@@ -51,12 +51,12 @@
   font-size: 12px; /* Reduz o tamanho da data */
   color: #999;
   float: right;
+  margin-top: 25px;
 }
 
 /* src/CSS/NewsCard.css */
 .show-more-button {
   background: linear-gradient(145deg, #1b5e20, #388e3c);
-  color: white;
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
@@ -65,8 +65,7 @@
 }
 
 .leiaMais{
-  color: #245c27;
-  float: right;
+  color: #388e3c;
 }
 
 /* CSS */
