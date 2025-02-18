@@ -4,13 +4,19 @@ import './App.css';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import NewsDetail from './pages/NewsDetail';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { NewsProvider } from './context/NewsContext';
 import Footer from './components/Footer';
 import CategoryPage from './pages/CategoryPage';
 import TermosDeUsoPrivacidade from './pages/TermosDeUsoPrivacidade';
 import SobreNos from './pages/SobreNos';
 import ErrorBoundary from "./context/ErrorBoundary";
+import { Navigate } from "react-router-dom";
+
+const ProtectedRoute = ({ element }) => {
+  const { user } = useAuth();
+  return user ? element : <Navigate to="/" />;
+};
 
 const App = () => {
   return (
@@ -29,7 +35,7 @@ const App = () => {
               {/* Rota para a página de categoria */}
               <Route path="/categoria/:categoria" element={<CategoryPage />} />
 
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
               <Route path="/news/:id" element={<NewsDetail />} />
             </Routes>
           </ErrorBoundary>
