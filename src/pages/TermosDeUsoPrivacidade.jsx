@@ -18,7 +18,7 @@ const TermsAndPrivacy = () => {
             <section>
                 <h2>2. Coleta de Informações</h2>
                 <p>
-                    O Pequi Tech disponibiliza aos usuários em geral o site PEQUI TECH (www.pequitech.com.br).
+                    O Pequi Tech disponibiliza aos usuários em geral o site PEQUI TECH (www.pequitech.online).
                     Ao utilizar o SITE, o usuário declara estar ciente de que podem ser recolhidas informações
                     relativas à sua navegação, tais como, mas sem limite, termos de busca, páginas mais visitadas,
                     anunciantes consultados, entre outras informações. As informações terão caráter estatístico
@@ -117,7 +117,7 @@ const TermsAndPrivacy = () => {
             <section>
                 <h2>5. Alterações</h2>
                 <p>
-                    Buscando a contínua melhoria, o Pequi poderá alterar a qualquer momento esta
+                    Buscando a contínua melhoria, o Pequi Tech poderá alterar a qualquer momento esta
                     Política, sendo que as alterações serão divulgadas no SITE para consulta a qualquer
                     tempo.
                 </p>
@@ -135,7 +135,7 @@ const TermsAndPrivacy = () => {
                 <h2>6. Contato</h2>
                 <p>
                     Para dúvidas ou solicitações relacionadas a estes termos, entre em
-                    contato pelo e-mail: suporte_pequitech@gmail.com.
+                    contato pelo e-mail: suporte.pequitech@gmail.com.
                 </p>
             </section>
         </div>
