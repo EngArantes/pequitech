@@ -90,6 +90,13 @@ const Header = () => {
                   Veículos e Tecnologias
                 </Link>
                 <Link
+                  to="/categoria/impressao-3d"
+                  className="sub-item"
+                  onClick={() => handleCategoryClick('impressao-3d')}
+                >
+                  Impressão 3D
+                </Link>
+                <Link
                   to="/categoria/jogos"
                   className="sub-item"
                   onClick={() => handleCategoryClick('jogos')}
