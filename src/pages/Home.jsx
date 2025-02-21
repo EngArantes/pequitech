@@ -8,7 +8,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import BannerDireita from '../components/RenderRightBanner';
 import BannerEsquerda from '../components/RenderLeftBanner';
 import BannerMeioCards from '../components/RenderBannerMeioCards';
-import BannerPrincipal from '../components/RenderPrincipalBanner'
+import BotaoTop from '../components/TopButton';
 
 const Home = () => {
   const [news, setNews] = useState([]); // Para armazenar as notícias
@@ -120,7 +120,7 @@ const Home = () => {
                   </>
                 ))}
               </div>
-
+                  <BotaoTop/>
             </InfiniteScroll>
           )}
         </div>
