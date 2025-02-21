@@ -6,6 +6,7 @@ import { convertFromRaw } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { FacebookShareButton, FacebookIcon, TwitterShareButton, TelegramShareButton,  TelegramIcon, WhatsappShareButton, WhatsappIcon } from 'react-share';
 import { FaXTwitter } from "react-icons/fa6";
+import BotaoTop from '../components/TopButton';
 
 
 import './CSS/NewsDetail.css';
@@ -164,6 +165,7 @@ const NewsDetail = () => {
                     )}
 
                 </div>
+                <BotaoTop/>
 
 
                 <div className="coluna-direita-detail">
