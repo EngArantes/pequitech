@@ -177,13 +177,6 @@ const Header = () => {
                 </Link>
                 
                 <Link
-                  to="/categoria/estilo-de-vida"
-                  className="sub-item"
-                  onClick={() => handleCategoryClick('estilo-de-vida')}
-                >
-                  Estilo de Vida
-                </Link>
-                <Link
                   to="/categoria/seguranca-digital"
                   className="sub-item"
                   onClick={() => handleCategoryClick('seguranca-digital')}
