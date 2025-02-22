@@ -115,7 +115,6 @@ const AddNews = () => {
           <option value="educacao-e-cursos">EDUCAÇÃO E CURSOS</option>
           <option value="seguranca-digital">SEGURANÇA DIGITAL</option>
           <option value="so-e-softwares">SISTEMAS E SOFTWARES</option>
-          <option value="negocios-e-financas">NEGÓCIOS E FINANÇAS</option>
           <option value="natureza">NATUREZA</option>
           <option value="blockchain-e-criptomoedas">BLOCKCHAIN E CRIPTOMOEDAS</option>
           <option value="fatos">FATOS</option>

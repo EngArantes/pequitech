@@ -190,13 +190,7 @@ const Header = () => {
                 >
                   Segurança Digital
                 </Link>
-                <Link
-                  to="/categoria/negocios-e-financas"
-                  className="sub-item"
-                  onClick={() => handleCategoryClick('negocios-e-financas')}
-                >
-                  Negócios e Finanças
-                </Link>
+                
                 <Link
                   to="/categoria/natureza"
                   className="sub-item"
