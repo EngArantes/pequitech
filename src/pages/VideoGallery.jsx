@@ -94,7 +94,7 @@ const VideoGallery = () => {
                   
                 </div>
                 <button
-                  className="delete-button"
+                  className="delete-buttons"
                   onClick={() => openModal(video.id)}
                 >
                   Excluir
