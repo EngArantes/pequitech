@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import AddNews from "../components/AddNews"; // Componente para adicionar notícias
-import ManageUsers from "../components/ManageUsers"; // Componente para gerenciar usuários
+import AddVideos from "../components/AddVideos"; // Componente para gerenciar usuários
 import Settings from "../components/Settings"; // Componente para configurações
 import AddBanners from '../components/AddPrincipalBanner';
 import AddBannersLaterais from '../components/AddLateraisBanner';
@@ -45,7 +45,7 @@ const Dashboard = () => {
           onClick={() => setActiveSection('users')}
           className={`sidebar-item ${activeSection === 'users' ? 'active' : ''}`}
         >
-          Usuários
+          Vídeos
         </button>
         <button
           onClick={() => setActiveSection('settings')}
@@ -64,7 +64,7 @@ const Dashboard = () => {
           <i className="fas fa-image"></i> Banners
         </button>
         <button onClick={() => setActiveSection('users')}>
-          <i className="fas fa-users"></i> Usuários
+          <i className="fas fa-users"></i> Vídeos
         </button>
         <button onClick={() => setActiveSection('settings')}>
           <i className="fas fa-cog"></i> Configurações
@@ -91,7 +91,7 @@ const Dashboard = () => {
 
         {activeSection === 'users' && (
           <div className="section">
-            <ManageUsers /> {/* Componente para gerenciar usuários */}
+            <AddVideos /> {/* Componente para gerenciar videos */}
           </div>
         )}
 

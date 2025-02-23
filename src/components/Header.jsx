@@ -55,7 +55,8 @@ const Header = () => {
         </button>
 
         <div className={`menu-items ${isMenuOpen ? 'open' : ''}`}>
-          <Link to="/" className="nav-item" onClick={toggleMenu}>HOME</Link>
+          <Link to="/" className="nav-item" onClick={toggleMenu}>Home</Link>
+          <Link to="/galeria-de-videos" className="nav-item" onClick={toggleMenu}>Vídeos</Link>
 
           <div className="mega-menu">
             <span className="nav-item" onClick={() => toggleDropdown('tecnologias')}>Tecnologias ▼</span>

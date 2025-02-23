@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import GaleriaDeVideos from './pages/VideoGallery';
 import './App.css';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
@@ -25,6 +26,7 @@ const App = () => {
             <Routes>
               {/* Home */}
               <Route path="/" element={<Home />} />
+              <Route path="/galeria-de-videos" element={<GaleriaDeVideos />} />
               <Route path="/termos-de-uso-e-privacidade" element={<TermosDeUsoPrivacidade />} />
               <Route path="/sobre-nos" element={<SobreNos />} />
 
