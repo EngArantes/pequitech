@@ -71,7 +71,7 @@ const VideoGallery = () => {
     setShowModal(true); // Exibe a modal
   };
 
-  
+
 
   return (
     <div className="video-gallery">
@@ -81,17 +81,18 @@ const VideoGallery = () => {
         {filteredVideos.map((video) => (
           <div key={video.id} className="video-card">
             <iframe
-              src={video.link.replace("watch?v=", "embed/")}
+              src={`${video.link.replace("watch?v=", "embed/")}?controls=1&modestbranding=1&rel=0`}
               title={`Video ${video.id}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
+
             <p className="video-title">{video.title || "Sem título"}</p>{" "}
             {/* Exibe o título do vídeo */}
             {currentUser && (
               <>
                 <div className="checkbox-container">
-                  
+
                 </div>
                 <button
                   className="delete-buttons"
