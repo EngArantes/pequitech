@@ -4,7 +4,7 @@ import { db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import { convertFromRaw } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
-import { FacebookShareButton, FacebookIcon, TwitterShareButton, TelegramShareButton,  TelegramIcon, WhatsappShareButton, WhatsappIcon } from 'react-share';
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TelegramShareButton, TelegramIcon, WhatsappShareButton, WhatsappIcon } from 'react-share';
 import { FaXTwitter } from "react-icons/fa6";
 import BotaoTop from '../components/TopButton';
 
@@ -23,55 +23,61 @@ const NewsDetail = () => {
     const [error, setError] = useState('');
     const currentUrl = window.location.href;
 
+    const customStyleMap = {
+        HIGHLIGHT: { backgroundColor: '#ccc', color: 'black', padding: '5px' },
+    };
 
+    // Mapeando tamanhos de fonte
+    [12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32].forEach(size => {
+        customStyleMap[`FONT_SIZE_${size}`] = { fontSize: `${size}px` };
+    });
 
     const fetchNewsDetail = useCallback(async () => {
         if (!id) {
-            setError('ID da notícia não encontrado');
-            setLoading(false);
-            return;
+          setError('ID da notícia não encontrado');
+          setLoading(false);
+          return;
         }
-
+      
         try {
-            const newsDoc = doc(db, 'news', id);
-            const newsSnapshot = await getDoc(newsDoc);
-
-            if (newsSnapshot.exists()) {
-                const data = newsSnapshot.data();
-
-                // Converter o conteúdo do Draft.js para HTML
-                let formattedContent = "";
-                if (data.content) {
-                    try {
-                        const contentState = convertFromRaw(JSON.parse(data.content));
-                        formattedContent = stateToHTML(contentState);
-                    } catch (error) {
-                        console.error("Erro ao converter conteúdo do Draft.js:", error);
-                        formattedContent = "<p>Erro ao carregar o conteúdo formatado.</p>";
-                    }
-                }
-
-                setNews({
-                    categoria: data.category,
-                    title: data.title,
-                    description: data.summary,
-                    legenda: data.imageCaption,
-                    content: formattedContent, // Conteúdo formatado
-                    date: data.createdAt.toDate().toLocaleString(),
-                    imageUrl: data.imageUrl || '',
-                    videoUrl: data.videoLink || '',
-                    fonte: data.source,
-                });
-            } else {
-                setError("Notícia não encontrada.");
+          const newsDoc = doc(db, 'news', id);
+          const newsSnapshot = await getDoc(newsDoc);
+      
+          if (newsSnapshot.exists()) {
+            const data = newsSnapshot.data();
+            let formattedContent = "";
+      
+            if (data.content) {
+              try {
+                const contentState = convertFromRaw(JSON.parse(data.content));
+                formattedContent = stateToHTML(contentState, { inlineStyles: customStyleMap });
+              } catch (error) {
+                console.error("Erro ao converter conteúdo do Draft.js:", error);
+                formattedContent = "<p>Erro ao carregar o conteúdo formatado.</p>";
+              }
             }
+      
+            setNews({
+              categoria: data.category,
+              title: data.title,
+              description: data.summary,
+              legenda: data.imageCaption,
+              content: formattedContent, // Conteúdo formatado corretamente
+              date: data.createdAt.toDate().toLocaleString(),
+              imageUrl: data.imageUrl || '',
+              videoUrl: data.videoLink || '',
+              fonte: data.source,
+            });
+          } else {
+            setError("Notícia não encontrada.");
+          }
         } catch (err) {
-            console.error('Erro ao buscar a notícia:', err);
-            setError("Erro ao carregar a notícia. Tente novamente.");
+          console.error('Erro ao buscar a notícia:', err);
+          setError("Erro ao carregar a notícia. Tente novamente.");
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    }, [id]);  // A função agora depende apenas de "id"
+      }, [id]);
 
     useEffect(() => {
         setError('');
@@ -165,7 +171,7 @@ const NewsDetail = () => {
                     )}
 
                 </div>
-                <BotaoTop/>
+                <BotaoTop />
 
 
                 <div className="coluna-direita-detail">
