@@ -151,6 +151,10 @@
     .coluna-central-detail {
       width: 100%;
     }
+
+    figure img{
+      width: 90%;
+    }
   }
   
   /* 📌 Responsividade para Smartphones (≤ 768px) */
@@ -178,6 +182,10 @@
     .news-video-container iframe {
       height: 300px; /* Reduz o tamanho do vídeo */
     }
+
+    figure img{
+      width: 90%;
+    }
   }
   
   /* 📌 Responsividade para Telas Pequenas (≤ 480px) */
@@ -200,6 +208,10 @@
   
     .news-video-container iframe {
       height: 250px;
+    }
+
+    figure img{
+      width: 90%;
     }
   }
   
