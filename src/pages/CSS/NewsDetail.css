@@ -165,13 +165,7 @@
       text-align: center;
     }
   
-    .news-content-text-detail p {
-      font-size: 1.2em; /* Reduz o tamanho do texto */
-    }
-  
-    .news-content-text-detail strong {
-      font-size: 1.3em; /* Ajuste para destaque */
-    }
+    
   
     .news-video-container iframe {
       height: 300px; /* Reduz o tamanho do vídeo */
