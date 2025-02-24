@@ -71,13 +71,23 @@
 
 
 .news-content-detail .news-description-detail {
+    font-size: 1.3em;
     margin-bottom: 20px;
     color: rgb(134, 134, 134);
 }
 
+
+
 .news-content-text-detail p{
+    font-size: 1.4em;
     line-height: 1.6;
     color: rgb(87, 87, 87);
+}
+
+.news-content-text-detail h2 span, .news-content-text-detail h3 span{
+  font-size: 1.5em;
+  line-height: 1.6;
+  color: rgb(0, 0, 0);
 }
 
 .news-content-text-detail strong{
