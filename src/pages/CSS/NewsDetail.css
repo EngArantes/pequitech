@@ -71,13 +71,11 @@
 
 
 .news-content-detail .news-description-detail {
-    font-size: 1.3em;
     margin-bottom: 20px;
     color: rgb(134, 134, 134);
 }
 
 .news-content-text-detail p{
-    font-size: 1.5em;
     line-height: 1.6;
     color: rgb(87, 87, 87);
 }
