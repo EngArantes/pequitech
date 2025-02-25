@@ -152,9 +152,7 @@
       width: 100%;
     }
 
-    figure img{
-      width: 90%;
-    }
+    
   }
   
   /* 📌 Responsividade para Smartphones (≤ 768px) */
@@ -183,9 +181,7 @@
       height: 300px; /* Reduz o tamanho do vídeo */
     }
 
-    figure img{
-      width: 90%;
-    }
+    
   }
   
   /* 📌 Responsividade para Telas Pequenas (≤ 480px) */
@@ -210,8 +206,6 @@
       height: 250px;
     }
 
-    figure img{
-      width: 90%;
-    }
+    
   }
   
