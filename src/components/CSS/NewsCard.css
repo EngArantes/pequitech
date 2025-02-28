@@ -97,26 +97,30 @@
 
 .card-actions {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
-  padding: 10px; /* Ajuste conforme necessário */
 }
 
-.delete-button {
-  background-color: #ff4444;
+button.delete-button, button.edit-button {  
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 10px;
   cursor: pointer;
   border-radius: 3px;
+  height: 30px;
 }
 
 .edit-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 3px;
+  background-color: #4CAF50;  
+  margin-top: 10px;
+}
+
+.delete-button {
+  background-color: #ff4444;  
 }
 
 
