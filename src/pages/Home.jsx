@@ -111,7 +111,7 @@ const Home = () => {
                     />
 
                     {/* Renderiza o banner do meio após o 12º card */}
-                    {(index + 1) % 12 === 0 && (
+                    {(index + 1) % 16 === 0 && (
                       <div key={`banner-meio-${index}`} className="banner-meio-cards">
                         <BannerMeioCards />
                       </div>
