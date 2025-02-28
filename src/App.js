@@ -12,7 +12,7 @@ import CategoryPage from './pages/CategoryPage';
 import TermosDeUsoPrivacidade from './pages/TermosDeUsoPrivacidade';
 import SobreNos from './pages/SobreNos';
 import ErrorBoundary from "./context/ErrorBoundary";
-
+import EditNews from './components/EditNews';
 
 
 const App = () => {
@@ -32,7 +32,7 @@ const App = () => {
 
               {/* Rota para a página de categoria */}
               <Route path="/categoria/:categoria" element={<CategoryPage />} />
-
+              <Route path="/edit-news/:id" element={<EditNews />} />
               <Route path="/dashboard" element={<Dashboard />}  />
               <Route path="/news/:id" element={<NewsDetail />} />
             </Routes>

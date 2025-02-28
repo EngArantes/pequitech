@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { db, storage } from '../firebaseConfig';
-import { collection, addDoc, getDocs, query, where, Timestamp, deleteDoc, doc, limit, startAfter, orderBy } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, Timestamp, deleteDoc, doc, limit, startAfter, orderBy, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 
 export const NewsContext = createContext();
@@ -136,6 +136,59 @@ export const NewsProvider = ({ children }) => {
     }
   };
 
+//////Edita noticia
+  const updateNews = async (newsId, updatedData) => {
+    try {
+      let imageUrl = updatedData.imageUrl;
+
+      // Se uma nova imagem foi enviada
+      if (updatedData.image instanceof File) {
+        const storageRef = ref(storage, `news_images/${updatedData.image.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, updatedData.image);
+        
+        imageUrl = await new Promise((resolve, reject) => {
+          uploadTask.on(
+            'state_changed',
+            null,
+            (error) => reject(error),
+            async () => {
+              const url = await getDownloadURL(uploadTask.snapshot.ref);
+              // Deletar a imagem antiga se existir
+              if (updatedData.oldImageUrl) {
+                const oldImageRef = ref(storage, updatedData.oldImageUrl);
+                await deleteObject(oldImageRef);
+              }
+              resolve(url);
+            }
+          );
+        });
+      }
+
+      const newsRef = doc(db, 'news', newsId);
+      await updateDoc(newsRef, {
+        category: updatedData.category.toLowerCase(),
+        title: updatedData.title,
+        summary: updatedData.summary,
+        content: updatedData.content,
+        imageUrl: imageUrl,
+        imageCaption: updatedData.imageCaption,
+        videoLink: updatedData.videoLink || '',
+        source: updatedData.source,
+      });
+
+      // Atualizar o estado local
+      setNews(prevNews => prevNews.map(item => 
+        item.id === newsId ? { ...item, ...updatedData, imageUrl } : item
+      ));
+      
+      console.log("Notícia atualizada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao atualizar notícia:", error);
+      throw error;
+    }
+  };
+
+
   const deleteNews = async (newsId, imageUrl) => {
     try {
       if (imageUrl) {
@@ -170,7 +223,8 @@ export const NewsProvider = ({ children }) => {
       fetchAllNews,
       filterNewsByCategory,
       addNews,
-      deleteNews
+      deleteNews,
+      updateNews
     }}>
       {children}
     </NewsContext.Provider>

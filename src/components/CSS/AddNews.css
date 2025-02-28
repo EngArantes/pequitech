@@ -59,6 +59,14 @@
     transition: background-color 0.3s ease;
 }
 
+.add-news-container .cancel-button{
+    background-color: #333;
+}
+
+.add-news-container .cancel-button:hover{
+    background-color: #222222;
+}
+
 .add-news-container button:hover {
     background-color: #45a049;
 }
