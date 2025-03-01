@@ -85,44 +85,42 @@ const EditNews = () => {
       const reader = new FileReader();
       reader.onloadend = () => setImagePreview(reader.result);
       reader.readAsDataURL(file);
-      console.log("Nova imagem selecionada:", file.name); // Depuração
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Dados enviados para updateNews:", {
-      id,
       category,
       title,
-      image: image ? image.name : null,
+      image: image || null,
       summary,
-      content: editorState.getCurrentContent().getPlainText(),
+      content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
       imageCaption,
       videoLink,
       source,
       oldImageUrl,
       imageUrl: imagePreview,
-    });
+    }); // Depuração
 
     try {
       await updateNews(id, {
         category,
         title,
-        image: image || null,
+        image: image || null, // Envia o arquivo bruto
         summary,
         content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
         imageCaption,
         videoLink,
         source,
         oldImageUrl,
-        imageUrl: imagePreview,
+        imageUrl: imagePreview, // Mantém a preview local, mas será substituída pelo upload
       });
       alert("Notícia atualizada com sucesso!");
       navigate('/');
     } catch (error) {
       console.error("Erro ao salvar alterações:", error);
-      alert("Ocorreu um erro ao salvar as alterações: " + error.message);
+      alert("Ocorreu um erro ao salvar as alterações. Verifique o console para mais detalhes.");
     }
   };
 
