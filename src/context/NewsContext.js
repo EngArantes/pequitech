@@ -136,7 +136,7 @@ export const NewsProvider = ({ children }) => {
     }
   };
 
-//////Edita noticia
+  //////Edita noticia
   const updateNews = async (newsId, updatedData) => {
     try {
       let imageUrl = updatedData.imageUrl;
@@ -145,18 +145,30 @@ export const NewsProvider = ({ children }) => {
       if (updatedData.image instanceof File) {
         const storageRef = ref(storage, `news_images/${updatedData.image.name}`);
         const uploadTask = uploadBytesResumable(storageRef, updatedData.image);
-        
+
         imageUrl = await new Promise((resolve, reject) => {
           uploadTask.on(
             'state_changed',
-            null,
+            (snapshot) => {
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log(`Progresso do upload: ${progress}%`); // Depuração
+            },
             (error) => reject(error),
             async () => {
               const url = await getDownloadURL(uploadTask.snapshot.ref);
-              // Deletar a imagem antiga se existir
               if (updatedData.oldImageUrl) {
-                const oldImageRef = ref(storage, updatedData.oldImageUrl);
-                await deleteObject(oldImageRef);
+                try {
+                  const oldImageRef = ref(storage, updatedData.oldImageUrl);
+                  await deleteObject(oldImageRef);
+                  console.log("Imagem antiga deletada com sucesso:", updatedData.oldImageUrl);
+                } catch (deleteError) {
+                  if (deleteError.code === 'storage/object-not-found') {
+                    console.log("Imagem antiga não encontrada, prosseguindo:", updatedData.oldImageUrl);
+                  } else {
+                    console.error("Erro ao deletar imagem antiga:", deleteError);
+                  }
+                  // Não rejeita a Promise, apenas continua
+                }
               }
               resolve(url);
             }
@@ -177,10 +189,10 @@ export const NewsProvider = ({ children }) => {
       });
 
       // Atualizar o estado local
-      setNews(prevNews => prevNews.map(item => 
+      setNews(prevNews => prevNews.map(item =>
         item.id === newsId ? { ...item, ...updatedData, imageUrl } : item
       ));
-      
+
       console.log("Notícia atualizada com sucesso!");
     } catch (error) {
       console.error("Erro ao atualizar notícia:", error);

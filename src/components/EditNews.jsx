@@ -24,7 +24,7 @@ const EditNews = () => {
   const isMounted = useRef(false);
 
   useEffect(() => {
-    if (isMounted.current || !news.length) return; // Só carrega na montagem inicial
+    if (isMounted.current || !news.length) return;
 
     const newsItem = news.find(item => item.id === id);
     if (newsItem) {
@@ -85,18 +85,19 @@ const EditNews = () => {
       const reader = new FileReader();
       reader.onloadend = () => setImagePreview(reader.result);
       reader.readAsDataURL(file);
+      console.log("Nova imagem selecionada:", file.name); // Depuração
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await updateNews(id, {
+    console.log("Dados enviados para updateNews:", {
+      id,
       category,
       title,
-      image: image || null,
+      image: image ? image.name : null,
       summary,
-      content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+      content: editorState.getCurrentContent().getPlainText(),
       imageCaption,
       videoLink,
       source,
@@ -104,12 +105,29 @@ const EditNews = () => {
       imageUrl: imagePreview,
     });
 
-    alert("Notícia atualizada com sucesso!");
-    navigate('/');
+    try {
+      await updateNews(id, {
+        category,
+        title,
+        image: image || null,
+        summary,
+        content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+        imageCaption,
+        videoLink,
+        source,
+        oldImageUrl,
+        imageUrl: imagePreview,
+      });
+      alert("Notícia atualizada com sucesso!");
+      navigate('/');
+    } catch (error) {
+      console.error("Erro ao salvar alterações:", error);
+      alert("Ocorreu um erro ao salvar as alterações: " + error.message);
+    }
   };
 
   const handleCancel = () => {
-    navigate('/'); // Redireciona para a Home
+    navigate('/');
   };
 
   const blockRendererFn = (contentBlock) => {
