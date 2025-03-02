@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { db } from "../firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
-import ReCAPTCHA from 'react-google-recaptcha'; // Importa o componente reCAPTCHA
 import './CSS/Contato.css';
 
 const Contato = () => {
@@ -9,68 +8,116 @@ const Contato = () => {
   const [titulo, setTitulo] = useState('');
   const [email, setEmail] = useState('');
   const [mensagem, setMensagem] = useState('');
-  const [isVerified, setIsVerified] = useState(false); // Estado para verificar se o CAPTCHA foi passado
-  const captchaRef = useRef(null); // Referência para o reCAPTCHA
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Função para enviar a mensagem
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  // Carregar o script do reCAPTCHA v3
+  useEffect(() => {
+    const loadScript = () => {
+      if (!document.querySelector('script[src*="recaptcha"]')) {
+        const script = document.createElement('script');
+        script.src = 'https://www.google.com/recaptcha/api.js?render=6LcpV-cqAAAAAOicZJtBYRm6g-XtS0CtthP6QjSf';
+        script.async = true;
+        script.onload = () => console.log("reCAPTCHA script carregado com sucesso");
+        script.onerror = () => console.error("Erro ao carregar o script do reCAPTCHA");
+        document.body.appendChild(script);
+      }
+    };
+    loadScript();
+  }, []);
+
+  // Função para gerar o token do reCAPTCHA v3
+  const gerarTokenRecaptchaV3 = () => {
+    return new Promise((resolve, reject) => {
+      if (!window.grecaptcha) {
+        console.error("reCAPTCHA não está disponível. Script não carregado?");
+        reject(new Error("reCAPTCHA não carregado."));
+        return;
+      }
+
+      console.log("Tentando gerar token do reCAPTCHA...");
+      window.grecaptcha.ready(() => {
+        window.grecaptcha
+          .execute('6LcpV-cqAAAAAOicZJtBYRm6g-XtS0CtthP6QjSf', { action: 'submit' })
+          .then((token) => {
+            console.log("Token gerado com sucesso:", token);
+            setCaptchaToken(token);
+            resolve(token);
+          })
+          .catch((error) => {
+            console.error("Erro ao gerar token do reCAPTCHA:", error);
+            reject(error);
+          });
+      });
+    });
+  };
+
   const enviarMensagem = async (e) => {
     e.preventDefault();
+    setError('');
+    setIsLoading(true);
 
-    // Verificando se os campos estão preenchidos e se o CAPTCHA foi verificado
+    // Validação dos campos
     if (!nome || !titulo || !email || !mensagem) {
-      alert("Por favor, preencha todos os campos.");
+      setError("Por favor, preencha todos os campos.");
+      setIsLoading(false);
       return;
     }
-
-    if (!isVerified) {
-      alert("Por favor, confirme que você não é um robô.");
+    if (!isValidEmail(email)) {
+      setError("Por favor, insira um email válido.");
+      setIsLoading(false);
       return;
     }
 
     try {
-      // Adicionando o documento à coleção "Mensagens-recebidas"
+      // Gerar o token do reCAPTCHA v3
+      console.log("Iniciando geração do token...");
+      const token = await gerarTokenRecaptchaV3();
+      if (!token) {
+        setError("Falha ao verificar o reCAPTCHA.");
+        setIsLoading(false);
+        return;
+      }
+
+      console.log("Enviando mensagem ao Firestore...");
+      // Salvar no Firestore
       const mensagensRef = collection(db, "Mensagens-recebidas");
       await addDoc(mensagensRef, {
         nome,
         titulo,
         email,
         mensagem,
+        captchaToken: token,
         data: new Date(),
       });
 
-      // Limpa os campos após o envio
+      // Resetar o formulário
       setNome('');
       setTitulo('');
       setEmail('');
       setMensagem('');
-      setIsVerified(false); // Reseta o CAPTCHA
-      if (captchaRef.current) {
-        captchaRef.current.reset(); // Reseta o reCAPTCHA
-      }
+      setCaptchaToken(null);
       alert("Mensagem enviada com sucesso!");
     } catch (error) {
-      console.error("Erro ao enviar a mensagem:", error);
-      alert("Ocorreu um erro ao enviar a mensagem.");
+      console.error("Erro detalhado ao enviar a mensagem:", error.message || error);
+      setError(`Ocorreu um erro ao enviar a mensagem: ${error.message || 'Erro desconhecido'}`);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Função para controlar o número de caracteres da mensagem
   const handleMensagemChange = (e) => {
     const novaMensagem = e.target.value;
-    if (novaMensagem.length <= 500) {
-      setMensagem(novaMensagem);
-    }
-  };
-
-  // Função chamada quando o reCAPTCHA é verificado
-  const onCaptchaChange = (value) => {
-    setIsVerified(!!value); // Define como verdadeiro se o valor do CAPTCHA for válido
+    if (novaMensagem.length <= 500) setMensagem(novaMensagem);
   };
 
   return (
     <div className="form-message">
       <h2>Entre em contato conosco</h2>
-
+      {error && <p className="error-message">{error}</p>}
       <form onSubmit={enviarMensagem}>
         <div className="form-group">
           <label htmlFor="name">Nome:</label>
@@ -78,32 +125,22 @@ const Contato = () => {
             type="text"
             id="name"
             value={nome}
-            onChange={(e) => {
-              if (e.target.value.length <= 20) {
-                setNome(e.target.value);
-              }
-            }}
-            maxLength={20} // Limita diretamente no input
+            onChange={(e) => e.target.value.length <= 20 && setNome(e.target.value)}
+            maxLength={20}
             placeholder="Máximo de 20 caracteres"
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="title">Título:</label>
           <input
             type="text"
             id="title"
             value={titulo}
-            onChange={(e) => {
-              if (e.target.value.length <= 100) {
-                setTitulo(e.target.value);
-              }
-            }}
-            maxLength={100} // Limita diretamente no input
+            onChange={(e) => e.target.value.length <= 100 && setTitulo(e.target.value)}
+            maxLength={100}
             placeholder="Máximo de 100 caracteres"
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
@@ -113,7 +150,6 @@ const Contato = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="message">Mensagem:</label>
           <textarea
@@ -126,17 +162,9 @@ const Contato = () => {
             <p>{mensagem.length} / 500</p>
           </div>
         </div>
-
-        {/* Adiciona o reCAPTCHA aqui com a Site Key */}
-        <div className="captcha-container">
-          <ReCAPTCHA
-            ref={captchaRef}
-            sitekey="6LcpV-cqAAAAAOd6Z3gmnZAemWPypo2Xy4nR-j7a" // Adicionada a Site Key
-            onChange={onCaptchaChange}
-          />
-        </div>
-
-        <button type="submit" disabled={!isVerified}>Enviar Mensagem</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Enviando..." : "Enviar Mensagem"}
+        </button>
       </form>
     </div>
   );
