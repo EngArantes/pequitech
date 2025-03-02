@@ -131,7 +131,7 @@ const Contato = () => {
         <div className="captcha-container">
           <ReCAPTCHA
             ref={captchaRef}
-            sitekey="6LcpV-cqAAAAAOicZJtBYRm6g-XtS0CtthP6QjSf" // Adicionada a Site Key
+            sitekey="6LcpV-cqAAAAAOd6Z3gmnZAemWPypo2Xy4nR-j7a" // Adicionada a Site Key
             onChange={onCaptchaChange}
           />
         </div>
