@@ -24,9 +24,9 @@ const SobreHeader = () => {
           <p className='text_link'>Contato</p>
         </Link>
       </div>
-      <div>
+      {/*<div>
         <button swg-standard-button="contribution" className='text_link'>Contribua agora</button>
-      </div>
+      </div>*/}
 
     </div>
   );
