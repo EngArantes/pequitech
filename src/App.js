@@ -14,6 +14,7 @@ import TermosDeUsoPrivacidade from './pages/TermosDeUsoPrivacidade';
 import SobreNos from './pages/SobreNos';
 import ErrorBoundary from "./context/ErrorBoundary";
 import EditNews from './components/EditNews';
+import NewsTicker from './components/NewsTicker';
 import Contato from './pages/Contato';
 
 
@@ -22,7 +23,8 @@ const App = () => {
     <AuthProvider>
       <NewsProvider>
         <Router>
-          {/* Passando o setCategoriaSelecionada para o Header */}
+                   
+          <NewsTicker/>
           <SobreHeader />
           <Header />
           <ErrorBoundary>

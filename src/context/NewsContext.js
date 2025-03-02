@@ -11,6 +11,14 @@ export const NewsProvider = ({ children }) => {
   const [lastVisibleDoc, setLastVisibleDoc] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const generateSlug = (title) => {
+    return title
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')  // Remove caracteres especiais
+      .replace(/\s+/g, '-')      // Substitui espaços por "-"
+      .trim();
+  };
+  
   const addNews = async ({
     title,
     category,
@@ -18,16 +26,17 @@ export const NewsProvider = ({ children }) => {
     content,
     image,
     imageCaption,
-    videoLink, // Mantido como string para vídeo ao final
+    videoLink,
     source,
   }) => {
     try {
       let imageUrl = "";
-
+      const slug = generateSlug(title); // Gerar slug baseado no título
+  
       if (image) {
         const storageRef = ref(storage, `news_images/${image.name}`);
         const uploadTask = uploadBytesResumable(storageRef, image);
-
+  
         await new Promise((resolve, reject) => {
           uploadTask.on(
             'state_changed',
@@ -46,26 +55,28 @@ export const NewsProvider = ({ children }) => {
           );
         });
       }
-
+  
       const rawContent = content; // Já vem como JSON.stringify(convertToRaw) do AddNews
       await addDoc(collection(db, 'news'), {
         category: category.toLowerCase(),
         title,
+        slug,  // Adicionando o slug ao Firestore
         summary,
         content: rawContent,
         imageUrl,
         imageCaption,
-        videoLink: videoLink || '', // String para vídeo ao final
+        videoLink: videoLink || '',
         source,
         createdAt: Timestamp.fromDate(new Date()),
       });
-
+  
       console.log("Notícia adicionada com sucesso!");
     } catch (error) {
       console.error("Erro ao adicionar notícia: ", error);
       throw error;
     }
   };
+  
 
   const fetchAllNews = async () => {
     setLoading(true);

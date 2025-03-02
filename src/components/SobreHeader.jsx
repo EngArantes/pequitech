@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './CSS/SobreHeader.css';
+import NewsTicker from './NewsTicker';
 
 
 const SobreHeader = () => {
@@ -8,7 +9,7 @@ const SobreHeader = () => {
 
   return (
     <div className="sobre-header-container">
-
+    
       <div>
         <Link to="/termos-de-uso-e-privacidade" className="link-items">
           <p className='text_link'>Termos de Uso e Privacidade</p>
@@ -24,6 +25,7 @@ const SobreHeader = () => {
           <p className='text_link'>Contato</p>
         </Link>
       </div>
+
       {/*<div>
         <button swg-standard-button="contribution" className='text_link'>Contribua agora</button>
       </div>*/}
