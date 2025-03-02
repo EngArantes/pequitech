@@ -27,18 +27,32 @@
 </script>
 
 <!-- Google Reader Revenue Manager -->
-<script async type="application/javascript"
-        src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
-<script>
-  (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
-    basicSubscriptions.init({
-      type: "NewsArticle",
-      isPartOfType: ["Product"],
-      isPartOfProductId: "CAow69C4DA:openaccess",
-      clientOptions: { theme: "light", lang: "pt-BR" },
+<!-- No <head> -->
+  <script async type="application/javascript" src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
+  <script>
+    (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
+      basicSubscriptions.init({
+        type: "NewsArticle",
+        isPartOfType: ["Product"],
+        isPartOfProductId: "CAow69C4DA:contribution", // Ajuste para o ID correto
+        clientOptions: { theme: "light", lang: "pt-BR" },
+      });
     });
-  });
-</script>
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      "isAccessibleForFree": true,
+      "isPartOf": {
+        "@type": ["CreativeWork", "Product"],
+        "name": "Nome da sua publicação",
+        "productID": "CAow69C4DA:contribution" // Ajuste para o ID correto
+      }
+    }
+  </script>
+  
+ 
 
 
   <title>PequiTech - Notícias de Tecnologia</title>

@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import GaleriaDeVideos from './pages/VideoGallery';
 import './App.css';
 import Header from './components/Header';
+import SobreHeader from './components/SobreHeader';
 import Dashboard from './pages/Dashboard';
 import NewsDetail from './pages/NewsDetail';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -13,6 +14,7 @@ import TermosDeUsoPrivacidade from './pages/TermosDeUsoPrivacidade';
 import SobreNos from './pages/SobreNos';
 import ErrorBoundary from "./context/ErrorBoundary";
 import EditNews from './components/EditNews';
+import Contato from './pages/Contato';
 
 
 const App = () => {
@@ -21,6 +23,7 @@ const App = () => {
       <NewsProvider>
         <Router>
           {/* Passando o setCategoriaSelecionada para o Header */}
+          <SobreHeader />
           <Header />
           <ErrorBoundary>
             <Routes>
@@ -29,6 +32,7 @@ const App = () => {
               <Route path="/galeria-de-videos" element={<GaleriaDeVideos />} />
               <Route path="/termos-de-uso-e-privacidade" element={<TermosDeUsoPrivacidade />} />
               <Route path="/sobre-nos" element={<SobreNos />} />
+              <Route path="/contato" element={<Contato />} />
 
               {/* Rota para a página de categoria */}
               <Route path="/categoria/:categoria" element={<CategoryPage />} />

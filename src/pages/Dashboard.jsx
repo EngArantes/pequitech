@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import AddNews from "../components/AddNews"; // Componente para adicionar notícias
 import AddVideos from "../components/AddVideos"; // Componente para gerenciar usuários
-import Settings from "../components/Settings"; // Componente para configurações
+import Mensagens from "../components/ListagemDeMensagens"; // Componente para configurações
 import AddBanners from '../components/AddPrincipalBanner';
 import AddBannersLaterais from '../components/AddLateraisBanner';
 import AddBannerMeioCard from '../components/AddBannerMeioCards';
@@ -51,7 +51,7 @@ const Dashboard = () => {
           onClick={() => setActiveSection('settings')}
           className={`sidebar-item ${activeSection === 'settings' ? 'active' : ''}`}
         >
-          Configurações
+          Mensagens
         </button>
       </div>
 
@@ -66,8 +66,8 @@ const Dashboard = () => {
         <button onClick={() => setActiveSection('users')}>
           <i className="fas fa-users"></i> Vídeos
         </button>
-        <button onClick={() => setActiveSection('settings')}>
-          <i className="fas fa-cog"></i> Configurações
+        <button onClick={() => setActiveSection('mensagens')}>
+          <i className="fas fa-cog"></i> Mensagens
         </button>
       </div>
 
@@ -97,7 +97,7 @@ const Dashboard = () => {
 
         {activeSection === 'settings' && (
           <div className="section">
-            <Settings /> {/* Componente para configurações */}
+            <Mensagens /> {/* Componente para configurações */}
           </div>
         )}
       </div>

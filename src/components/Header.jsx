@@ -200,7 +200,9 @@ const Header = () => {
                   Fatos
                 </Link>              
             </div>
+            
           </div>
+          
 
           {currentUser ? (
             <>
