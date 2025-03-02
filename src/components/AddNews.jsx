@@ -143,10 +143,10 @@ const AddNews = () => {
           <option value="">Selecione a Categoria</option>
           <option value="inteligencia-artificial">INTELIGÊNCIA ARTIFICIAL</option>
           <option value="veiculos-e-tecnologias">VEÍCULOS E TECNOLOGIAS</option>
-          <option value="jogos">JOGOS</option>
+          <option value="games">GAMES</option>
           <option value="impressao-3d">IMPRESSÃO 3D</option>
           <option value="ciencia-e-espaco">CIÊNCIA E ESPAÇO</option>
-          <option value="cinema">CINEMA</option>
+          <option value="cinema-e-streaming">CINEMA E STREAMING</option>
           <option value="internet">INTERNET</option>
           <option value="redes-sociais">REDES SOCIAIS</option>
           <option value="produtos-e-reviews">PRODUTOS E REVIEWS</option>

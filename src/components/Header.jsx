@@ -98,11 +98,11 @@ const Header = () => {
                   Impressão 3D
                 </Link>
                 <Link
-                  to="/categoria/jogos"
+                  to="/categoria/games"
                   className="sub-item"
-                  onClick={() => handleCategoryClick('jogos')}
+                  onClick={() => handleCategoryClick('games')}
                 >
-                  Jogos
+                  Games
                 </Link>
                 <Link
                   to="/categoria/ciencia-e-espaco"
@@ -120,11 +120,11 @@ const Header = () => {
           <div className={`mega-menu-content ${openDropdown === 'entretenimento' ? 'show' : ''}`}>
               
                 <Link
-                  to="/categoria/cinema"
+                  to="/categoria/cinema-e-streaming"
                   className="sub-item"
-                  onClick={() => handleCategoryClick('cinema')}
+                  onClick={() => handleCategoryClick('cinema-e-streaming')}
                 >
-                  Cinema
+                  Cinema e Streaming
                 </Link>
                 <Link
                   to="/categoria/internet"
