@@ -1,35 +1,162 @@
-
+/* 🔹 Footer Container */
 .footer-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Motserrat', sans-serif;
-  color: #333;
   width: 100%;
+  padding: 5px; /* Consistente com NewsTicker, SobreHeader, Header */
+  box-sizing: border-box;
+  background-color: #1a1a1a; /* Fundo escuro elegante */
+  font-family: 'Montserrat', sans-serif; /* Fonte profissional */
 }
 
-
-/* Footer */
+/* 🔹 Footer Principal */
 .footer-footer {
   width: 100%;
-  background-image: url("../../img/background_header.webp");
-  background-size: cover;
-  color: white;
-  text-align: center;
-  padding: 20px 0;
-  margin-top: 50px;
+  max-width: 1200px; /* Limite máximo para centralizar em telas grandes */
+  margin: 0 auto; /* Centraliza o conteúdo */
+  padding: 40px 20px; /* Espaço interno generoso */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px; /* Espaçamento entre seções */
+  background: linear-gradient(135deg, #222, #333); /* Gradiente sutil */
+  color: #fff;
+  box-sizing: border-box;
 }
 
-.copyright{
-  border-bottom: solid 1px #086134;
+/* 🔹 Seções do Footer */
+.footer-section {
+  flex: 1;
+  min-width: 200px; /* Evita que as seções fiquem muito estreitas */
+  text-align: center;
+}
+
+.footer-section p {
+  font-size: 14px;
+  color: #ccc; /* Texto secundário mais suave */
+  margin-bottom: 15px;
+}
+
+/* 🔹 Links (Termos e Sobre) */
+.links-termos-sobre {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-items {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+}
+
+.nav-items:hover {
+  color: #F6C113; /* Amarelo vibrante, inspirado no Header */
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  transform: translateY(-2px); /* Efeito sutil ao passar o mouse */
+}
+
+/* 🔹 Copyright */
+.copyright {
+  border-bottom: 1px solid #F6C113; /* Linha decorativa em amarelo */
+  padding-bottom: 10px;
+}
+
+.copyright p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.copyright strong {
+  color: #F6C113; /* Destaque para "PublishUp!" */
+}
+
+/* 🔹 Redes Sociais */
+.social p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espaçamento entre ícones */
 }
 
 .social-link {
-  margin-left: 10px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil */
+  border-radius: 50%; /* Formato circular */
+  transition: all 0.3s ease;
 }
 
-.links-termos-sobre .nav-items{
-  color: white;
-  text-decoration: none;
+.social-link:hover {
+  background-color: #F6C113; /* Amarelo ao passar o mouse */
+  transform: scale(1.1); /* Aumenta levemente */
+}
+
+.social-link svg {
+  width: 24px; /* Ajusta o tamanho interno do ícone */
+  height: 24px;
+}
+
+/* 🔹 Responsividade */
+
+/* Telas médias (tablets, até 768px) */
+@media (max-width: 768px) {
+  .footer-footer {
+    padding: 20px 10px; /* Reduz padding interno */
+    flex-direction: column; /* Empilha as seções */
+    align-items: center;
+  }
+
+  .footer-section {
+    margin-bottom: 20px; /* Espaço entre seções empilhadas */
+  }
+
+  .links-termos-sobre {
+    align-items: center;
+  }
+
+  .social-links {
+    gap: 15px;
+  }
+}
+
+/* Telas pequenas (celulares, até 480px) */
+@media (max-width: 480px) {
+  .footer-footer {
+    padding: 15px 5px; /* Ainda mais compacto */
+  }
+
+  .footer-section {
+    min-width: 100%; /* Ocupa toda a largura */
+  }
+
+  .nav-items {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .footer-section p {
+    font-size: 12px;
+  }
+
+  .social-link {
+    width: 35px;
+    height: 35px;
+  }
+
+  .social-link svg {
+    width: 20px;
+    height: 20px;
+  }
 }

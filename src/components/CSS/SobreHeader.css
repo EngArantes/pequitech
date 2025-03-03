@@ -1,104 +1,120 @@
-/* 🔹 Estilização do cabeçalho (Desktop e Mobile) */
 .sobre-header-container {
   background-color: rebeccapurple;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 5vh; /* Mantém a altura fixa para desktop */
-  padding: 0 10px; /* Adiciona um padding lateral para evitar corte */
-  gap: 10px; /* Espaço mínimo entre os itens */
+  height: 7vh;
+  padding: 5px; /* Uniformizado */
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box; /* Adicionado explicitamente */
 }
 
 .link-items {
-  font-size: large;  
+  font-size: large;
   padding: 10px 15px;
   text-decoration: none;
-  white-space: nowrap; /* Garante que o texto não quebre em palavras */
+  white-space: nowrap;
 }
 
 .text_link {
   color: white;
-  margin-left: 50px; /* Restaurado para 50px, como no original */
   text-decoration: none;
   font-weight: bold;
-  font-size: 1rem; /* Define um tamanho de fonte base */
+  font-size: 1rem;
 }
 
 .text_link:hover {
   color: rgb(233, 233, 233);
 }
 
-/* Adiciona o separador | após cada .text_link, exceto o último */
-.text_link::after {
+.desktop-links .text_link::after {
   content: "|";
   color: white;
-  margin-left: 50px; /* Restaurado para 50px, como no original */
+  margin: 0 15px;
 }
 
-/* Remove o separador do último .text_link */
-.sobre-header-container > div:last-child .text_link::after {
+.desktop-links .link-items:last-child .text_link::after {
   content: none;
 }
 
-/* 🔹 Media Queries para responsividade */
+.carousel-wrapper {
+  display: none;
+  align-items: center;
+  width: 95%;
+  max-width: 100%;
+  justify-content: space-between;
+  padding: 0 5px;
+  box-sizing: border-box;
+}
 
-/* Telas médias (tablets, até 768px) */
+.carousel-content {
+  flex-grow: 1;
+  text-align: center;
+  overflow: hidden;
+}
+
+.carousel-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-color: white;
+  color: white;
+}
+
+.arrow-icon {
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
   .sobre-header-container {
-    height: auto; /* Altura se ajusta ao conteúdo */
-    padding: 10px; /* Mais espaço interno */
-    flex-wrap: wrap; /* Permite que os itens quebrem linha */
-    justify-content: space-around; /* Espaço uniforme entre itens */
+    padding: 5px;
   }
-
+  .desktop-links {
+    display: none;
+  }
+  .carousel-wrapper {
+    display: flex;
+  }
   .link-items {
-    font-size: 0.9rem; /* Reduz o tamanho da fonte */
-    padding: 8px 10px; /* Menos padding */
+    font-size: 0.9rem;
+    text-align: center;
+    width: 100%;
+    padding: 5px;
   }
-
   .text_link {
-    margin-left: 10px; /* Espaçamento reduzido */
+    margin-left: 0;
+    display: block;
   }
-
   .text_link::after {
-    margin-left: 10px; /* Ajusta o separador */
+    content: none;
+  }
+  .carousel-btn {
+    width: 30px;
+    height: 40px;
+    margin-right: 20px;
   }
 }
 
-/* Telas pequenas (celulares, até 480px) */
 @media (max-width: 480px) {
   .sobre-header-container {
-    flex-direction: column; /* Empilha os itens verticalmente */
-    gap: 5px; /* Espaço menor entre itens */
     padding: 5px;
-    height: auto; /* Altura se ajusta ao conteúdo */
   }
-
   .link-items {
-    font-size: 0.8rem; /* Fonte ainda menor */
-    padding: 5px; /* Padding mínimo */
-    text-align: center; /* Centraliza o texto */
-    width: 100%; /* Garante que os itens ocupem a largura total */
-  }
-
-  .text_link {
-    margin-left: 0; /* Remove margem lateral */
-    display: block; /* Garante que o texto ocupe a largura total */
-  }
-
-  .text_link::after {
-    content: none; /* Remove o separador | em telas pequenas */
-  }
-
-  /* Garante que o botão "Contribua agora" seja centralizado e cheio */
-  .sobre-header-container > div:last-child {
-    text-align: center;
-  }
-
-  .sobre-header-container > div:last-child button {
-    width: 100%;
-    max-width: 200px; /* Limita a largura máxima para evitar que cresça demais */
-    margin: 0 auto; /* Centraliza o botão */
-    display: block;
+    font-size: 0.8rem;
   }
 }

@@ -61,3 +61,12 @@
   font-size: 0.9rem;
   text-align: center;
 }
+
+
+/* Telas pequenas (celulares, até 480px) */
+@media (max-width: 760px){
+  .form-message {
+    width: 80%;
+  }
+
+}
