@@ -1,18 +1,55 @@
+/* 🔹 Container Principal */
 .sobre-header-container {
   background-color: rebeccapurple;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 7vh;
-  padding: 5px; /* Uniformizado */
-  gap: 10px;
+  height: 10vh; /* Reduzido de 5vh para 40px (mais estreito) */
+  padding: 5px;
+  gap: 5px; /* Reduzido para evitar overflow */
   width: 100%;
-  box-sizing: border-box; /* Adicionado explicitamente */
+  box-sizing: border-box;
+  position: relative;
 }
 
+/* 🔹 Links de Redes Sociais */
+.social-links {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 2px 10px; /* Padding reduzido para caber na altura */
+  position: absolute;
+  gap: 10px; /* Reduzido para layout mais compacto */
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Reduzido de 32px */
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background-color: #F6C113;
+  transform: scale(1.1);
+}
+
+.social-link svg {
+  width: 16px; /* Reduzido de 20px */
+  height: 16px;
+}
+
+/* 🔹 Links Desktop */
 .link-items {
-  font-size: large;
-  padding: 10px 15px;
+  font-size: 14px; /* Reduzido de large para caber */
+  padding: 5px 10px; /* Padding reduzido */
   text-decoration: none;
   white-space: nowrap;
 }
@@ -21,7 +58,7 @@
   color: white;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 14px; /* Ajustado para caber */
 }
 
 .text_link:hover {
@@ -31,17 +68,18 @@
 .desktop-links .text_link::after {
   content: "|";
   color: white;
-  margin: 0 15px;
+  margin: 0 10px; /* Reduzido para layout mais compacto */
 }
 
 .desktop-links .link-items:last-child .text_link::after {
   content: none;
 }
 
+/* 🔹 Carrossel */
 .carousel-wrapper {
   display: none;
   align-items: center;
-  width: 99%;
+  width: 100%;
   max-width: 100%;
   justify-content: space-between;
   padding: 0 5px;
@@ -58,13 +96,13 @@
   background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 25px; /* Reduzido de 35px */
+  height: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1rem;
+  font-size: 0.9rem; /* Reduzido */
   cursor: pointer;
   transition: all 0.3s ease;
   flex-shrink: 0;
@@ -80,40 +118,74 @@
   font-weight: bold;
 }
 
+/* 🔹 Responsividade */
+
+/* Telas mobile e tablets no modo retrato (até 768px) */
 @media (max-width: 768px) {
   .sobre-header-container {
+    height: auto; /* Mantido auto para mobile */
     padding: 5px;
   }
+
   .desktop-links {
     display: none;
   }
+
   .carousel-wrapper {
     display: flex;
+    height: 5vh;
   }
+
   .link-items {
     font-size: 0.9rem;
     text-align: center;
     width: 100%;
     padding: 5px;
   }
+
   .text_link {
     margin-left: 0;
     display: block;
   }
+
   .text_link::after {
     content: none;
   }
+
   .carousel-btn {
-    width: 30px;
+    width: 25px; /* Já ajustado */
     height: 40px;
+  }
+
+  .social-links {
+    justify-content: center;
+    position: static;
+    padding: 2px;
   }
 }
 
+/* Telas pequenas (celulares, até 480px) */
 @media (max-width: 480px) {
   .sobre-header-container {
     padding: 5px;
   }
+
   .link-items {
     font-size: 0.8rem;
+  }
+
+  .social-link {
+    width: 20px; /* Reduzido ainda mais */
+    height: 20px;
+  }
+
+  .social-link svg {
+    width: 14px; /* Reduzido */
+    height: 14px;
+  }
+
+  .carousel-wrapper {
+    display: flex;
+    height: 5vh;
   }
 }

@@ -15,7 +15,7 @@ const NewsTicker = () => {
     const fetchLatestNews = async () => {
       try {
         const newsRef = collection(db, 'news');
-        const q = query(newsRef, orderBy('createdAt', 'desc'), limit(5));
+        const q = query(newsRef, orderBy('createdAt', 'desc'), limit(10));
         const querySnapshot = await getDocs(q);
         const newsList = querySnapshot.docs.map(doc => ({
           id: doc.id,
@@ -41,7 +41,7 @@ const NewsTicker = () => {
       >
         {latestNews.map(news => (
           <SwiperSlide key={news.id}>
-            <Link to={`/noticia/${news.slug}`} className="news-ticker-item">
+            <Link to={`/noticia/${news.id}`} className="news-ticker-item">
               {news.title}
             </Link>
           </SwiperSlide>

@@ -84,11 +84,13 @@
     color: rgb(87, 87, 87);
 }
 
+
+
 .news-content-text-detail p strong{
   font-size: 1em;
 }
 
-.news-content-text-detail h2, .news-content-text-detail h3{
+.news-content-text-detail h2, .news-content-text-detail h3, .news-content-text-detail h4{
   font-size: 1.8em;
   line-height: 1.6;
   color: rgb(0, 0, 0);

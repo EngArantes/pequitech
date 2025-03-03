@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaInstagram, FaYoutube } from 'react-icons/fa'; // Importando ícones
 import './CSS/SobreHeader.css';
 
 const SobreHeader = () => {
@@ -21,6 +22,27 @@ const SobreHeader = () => {
 
   return (
     <div className="sobre-header-container">
+      {/* Ícones de redes sociais no topo */}
+      <div className="social-links">
+        <a
+          href="https://www.instagram.com/pequi_tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-link"
+        >
+          <FaInstagram size={24} color="#fff" />
+        </a>
+        <a
+          href="https://www.youtube.com/@PequiTech"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-link"
+        >
+          <FaYoutube size={24} color="#fff" />
+        </a>
+      </div>
+
+      {/* Carrossel para mobile */}
       <div className="carousel-wrapper">
         <button className="carousel-btn prev" onClick={handlePrev}>
           <span className="arrow-icon">←</span>
@@ -35,7 +57,7 @@ const SobreHeader = () => {
         </button>
       </div>
 
-      {/* Links exibidos lado a lado em desktop e tablets no modo paisagem */}
+      {/* Links para desktop e tablets no modo paisagem */}
       <div className="desktop-links">
         {links.map((link, index) => (
           <Link key={index} to={link.to} className="link-items">

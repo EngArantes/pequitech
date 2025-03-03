@@ -24,7 +24,7 @@
 
 /* 🔹 Logomarca */
 .logo-container img {
-  width: 140px; /* Aumentado para destaque */
+  width: 50%; /* Aumentado para destaque */
   height: auto;
   transition: transform 0.3s ease;
 }
@@ -49,6 +49,8 @@
   border-radius: 5px;
   transition: all 0.3s ease;
   text-transform: uppercase; /* Letras maiúsculas para sofisticação */
+  display: flex;
+  align-items: center;
 }
 
 .nav-item:hover {

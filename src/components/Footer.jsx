@@ -23,12 +23,12 @@ const Footer = () => {
         </div>
         <div className="footer-section social">
           <p>Siga-nos nas redes sociais:</p>
-          <div className="social-links">
+          <div className="social-linkss">
             <a
               href="https://www.instagram.com/pequi_tech/"
               target="_blank"
               rel="noopener noreferrer"
-              className="social-link"
+              className="social-linkk"
             >
               <FaInstagram size={30} color="#fff" />
             </a>
@@ -36,7 +36,7 @@ const Footer = () => {
               href="https://www.youtube.com/@PequiTech"
               target="_blank"
               rel="noopener noreferrer"
-              className="social-link"
+              className="social-linkk"
             >
               <FaYoutube size={30} color="#fff" /> {/* Corrigido para FaYoutube */}
             </a>
