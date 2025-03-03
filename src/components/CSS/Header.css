@@ -138,6 +138,29 @@
   transform: translateX(5px);
 }
 
+
+
+.modal-content button[type=submit]{
+  background-color: #4CAF50;
+}
+
+.modal-content button[type=submit]:hover{
+  background-color: #337735;
+}
+
+.modal-content .close-button{
+  background-color: transparent;
+  color: red;
+}
+
+.tab-content form input{
+width: 95%;
+}
+
+.modal-content .active{
+  display: none;
+}
+
 /* 🔹 Animação de Fade-In */
 @keyframes fadeIn {
   from {
@@ -226,6 +249,10 @@
     background-color: rgba(246, 193, 19, 0.1);
     color: #F6C113;
   }
+
+  .modal-content{
+    width: 90%;
+  }
 }
 
 /* Telas pequenas (celulares, até 480px) */
@@ -255,5 +282,9 @@
   .menu-toggle {
     margin-right: 40px;
     font-size: 24px;
+  }
+
+  .modal-content{
+    width: 90%;
   }
 }
