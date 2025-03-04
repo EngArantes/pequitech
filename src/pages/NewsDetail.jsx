@@ -41,11 +41,18 @@ const NewsDetail = () => {
 
       if (newsSnapshot.exists()) {
         const data = newsSnapshot.data();
+        console.log("Dados brutos do Firestore:", data);
+
         let formattedContent = "";
 
         if (data.content) {
           try {
-            const contentState = convertFromRaw(JSON.parse(data.content));
+            const parsedContent = JSON.parse(data.content);
+            console.log("Conteúdo parsing JSON:", parsedContent);
+
+            const contentState = convertFromRaw(parsedContent);
+            console.log("Blocos no contentState:", contentState.getBlockMap().toJS());
+
             formattedContent = stateToHTML(contentState, {
               inlineStyles: customStyleMap,
               blockRenderers: {
@@ -53,20 +60,27 @@ const NewsDetail = () => {
                   const entityKey = block.getEntityAt(0);
                   if (entityKey) {
                     const entity = contentState.getEntity(entityKey);
-                    if (entity.getType() === 'VIDEO') {
-                      const { src } = entity.getData();
+                    const entityType = entity.getType();
+                    const { src } = entity.getData();
+                    console.log("Bloco atômico processado:", { entityType, src });
+
+                    if (entityType === 'VIDEO') {
                       const videoId = src.match(/(?:youtube\.com\/(?:.*v=|.*\/)|youtu\.be\/)([^&?/]+)/)?.[1];
                       if (videoId) {
                         return `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                       }
+                    }
+                    if (entityType === 'IMAGE') {
+                      return `<img src="${src}" alt="Imagem no conteúdo" style="max-width: 100%; height: auto;" />`;
                     }
                   }
                   return '';
                 },
               },
             });
+            console.log("HTML gerado:", formattedContent);
           } catch (error) {
-            console.error("Erro ao converter conteúdo do Draft.js:", error);
+            console.error("Erro ao processar o conteúdo do Draft.js:", error);
             formattedContent = "<p>Erro ao carregar o conteúdo formatado.</p>";
           }
         }
@@ -79,7 +93,7 @@ const NewsDetail = () => {
           content: formattedContent,
           date: data.createdAt.toDate().toLocaleString(),
           imageUrl: data.imageUrl || '',
-          videoLink: data.videoLink || '', // Mantido como string para vídeo ao final
+          videoLink: data.videoLink || '',
           fonte: data.source,
         });
       } else {
@@ -127,7 +141,6 @@ const NewsDetail = () => {
                 dangerouslySetInnerHTML={{ __html: news.content }}
               />
 
-              {/* Renderizar vídeo do campo videoLink ao final */}
               {news.videoLink && (
                 <div className="news-video-container">
                   {(() => {

@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { db, storage } from '../firebaseConfig';
-import { collection, addDoc, getDocs, query, where, Timestamp, deleteDoc, doc, limit, startAfter, orderBy, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, Timestamp, deleteDoc, getDoc, doc, limit, startAfter, orderBy, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 
 export const NewsContext = createContext();
@@ -214,16 +214,56 @@ export const NewsProvider = ({ children }) => {
 
   const deleteNews = async (newsId, imageUrl) => {
     try {
-      if (imageUrl) {
-        const imageRef = ref(storage, imageUrl);
-        await deleteObject(imageRef);
-        console.log("Imagem deletada com sucesso!");
-      }
-
+      // Referência ao documento da notícia no Firestore
       const newsRef = doc(db, 'news', newsId);
-      await deleteDoc(newsRef);
-      console.log("Notícia deletada com sucesso!");
-
+      const newsSnapshot = await getDoc(newsRef);
+  
+      if (newsSnapshot.exists()) {
+        const data = newsSnapshot.data();
+  
+        // Deletar a imagem principal, se existir
+        if (imageUrl) {
+          const imageRef = ref(storage, imageUrl);
+          await deleteObject(imageRef);
+          console.log("Imagem principal deletada com sucesso!");
+        }
+  
+        // Deletar as imagens do editor salvas em editor_images
+        if (data.content) {
+          const rawContent = JSON.parse(data.content);
+          const entityMap = rawContent.entityMap || {};
+  
+          // Iterar sobre as entidades no entityMap
+          for (const key in entityMap) {
+            const entity = entityMap[key];
+            if (entity.type === 'IMAGE' && entity.data.src) {
+              const imageUrl = entity.data.src;
+              // Verificar se a URL pertence à pasta editor_images
+              if (imageUrl.includes('editor_images')) {
+                const imageRef = ref(storage, imageUrl);
+                try {
+                  await deleteObject(imageRef);
+                  console.log(`Imagem do editor deletada com sucesso: ${imageUrl}`);
+                } catch (deleteError) {
+                  if (deleteError.code === 'storage/object-not-found') {
+                    console.log(`Imagem não encontrada, ignorando: ${imageUrl}`);
+                  } else {
+                    console.error(`Erro ao deletar imagem do editor ${imageUrl}:`, deleteError);
+                  }
+                }
+              }
+            }
+          }
+        }
+  
+        // Deletar o documento da notícia
+        await deleteDoc(newsRef);
+        console.log("Notícia deletada com sucesso!");
+      } else {
+        console.log("Notícia não encontrada para exclusão.");
+      }
+  
+      // Atualizar o estado local
       setNews(prevNews => prevNews.filter(news => news.id !== newsId));
     } catch (error) {
       console.error("Erro ao excluir a notícia:", error);

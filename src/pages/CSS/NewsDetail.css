@@ -50,6 +50,11 @@
     border-radius: 8px;
 }
 
+.news-content-text-detail img {
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
 .news-legenda-detail {
     width: 100%;
     font-size: 0.9em;

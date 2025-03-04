@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Editor, EditorState, RichUtils, Modifier, convertToRaw, AtomicBlockUtils } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { useNews } from '../context/NewsContext';
+import { storage } from '../firebaseConfig';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import './CSS/AddNews.css';
 
 const AddNews = () => {
@@ -11,7 +13,7 @@ const AddNews = () => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [imageCaption, setImageCaption] = useState("");
-  const [videoLink, setVideoLink] = useState(""); // Mantido para vídeo ao final
+  const [videoLink, setVideoLink] = useState("");
   const [source, setSource] = useState("");
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [fontSize, setFontSize] = useState(16);
@@ -59,7 +61,48 @@ const AddNews = () => {
     }
   };
 
-  // Função para adicionar vídeo como bloco atômico no editor
+  const addImageToEditor = async (file) => {
+    // Fazer upload da imagem para o Firebase Storage
+    const storageRef = ref(storage, `editor_images/${Date.now()}-${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    try {
+      const imageUrl = await new Promise((resolve, reject) => {
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log(`Progresso do upload da imagem do editor: ${progress}%`);
+          },
+          (error) => reject(error),
+          async () => {
+            const url = await getDownloadURL(uploadTask.snapshot.ref);
+            resolve(url);
+          }
+        );
+      });
+
+      // Adicionar a URL como bloco atômico no editor
+      const contentState = editorState.getCurrentContent();
+      const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', {
+        src: imageUrl,
+      });
+      const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+      const newEditorState = AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ');
+      setEditorState(newEditorState);
+      console.log("Imagem adicionada ao editor com URL:", { entityKey, src: imageUrl });
+    } catch (error) {
+      console.error("Erro ao fazer upload da imagem do editor:", error);
+    }
+  };
+
+  const handleEditorImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      addImageToEditor(file);
+    }
+  };
+
   const addVideoToEditor = (url) => {
     const contentState = editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity('VIDEO', 'IMMUTABLE', { src: url });
@@ -68,7 +111,6 @@ const AddNews = () => {
     setEditorState(newEditorState);
   };
 
-  // Detectar URL de vídeo ao pressionar Enter ou espaço
   const handleKeyCommand = (command, editorState) => {
     if (command === 'split-block') {
       const selection = editorState.getSelection();
@@ -90,18 +132,20 @@ const AddNews = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const rawContent = convertToRaw(editorState.getCurrentContent());
+    const contentString = JSON.stringify(rawContent);
+
     await addNews({
       category,
       title,
       image,
       summary,
-      content: JSON.stringify(convertToRaw(editorState.getCurrentContent())), // Inclui entidades de vídeo
+      content: contentString,
       imageCaption,
-      videoLink, // Mantido como string para vídeo ao final
+      videoLink,
       source,
     });
 
-    // Resetar formulário
     setTitle('');
     setCategory('');
     setSummary('');
@@ -115,7 +159,6 @@ const AddNews = () => {
     alert("Notícia adicionada com sucesso!");
   };
 
-  // Renderizar blocos atômicos (vídeos) no editor
   const blockRendererFn = (contentBlock) => {
     if (contentBlock.getType() === 'atomic') {
       const contentState = editorState.getCurrentContent();
@@ -126,6 +169,14 @@ const AddNews = () => {
           const { src } = entity.getData();
           return {
             component: VideoComponent,
+            editable: false,
+            props: { src },
+          };
+        }
+        if (entity.getType() === 'IMAGE') {
+          const { src } = entity.getData();
+          return {
+            component: ImageComponent,
             editable: false,
             props: { src },
           };
@@ -178,6 +229,10 @@ const AddNews = () => {
               <option key={size} value={size}>{size}px</option>
             ))}
           </select>
+          <label className="image-upload-btn">
+            <input type="file" accept="image/*" onChange={handleEditorImageChange} style={{ display: 'none' }} />
+            Adicionar Imagem
+          </label>
         </div>
 
         <div className="editor-container">
@@ -199,7 +254,11 @@ const AddNews = () => {
   );
 };
 
-// Componente para renderizar vídeos no editor
+const ImageComponent = ({ blockProps }) => {
+  const { src } = blockProps;
+  return <img src={src} alt="Imagem no conteúdo" style={{ maxWidth: '100%', height: 'auto' }} />;
+};
+
 const VideoComponent = ({ blockProps }) => {
   const { src } = blockProps;
   const videoId = src.match(/(?:youtube\.com\/(?:.*v=|.*\/)|youtu\.be\/)([^&?/]+)/)?.[1];
