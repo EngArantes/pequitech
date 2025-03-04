@@ -20,7 +20,7 @@ const NewsTicker = () => {
         const newsList = querySnapshot.docs.map(doc => ({
           id: doc.id,
           title: doc.data().title,
-          slug: doc.data().slug,
+          slug: doc.data().slug || doc.id, // Fallback para o ID caso o slug não exista
         }));
         setLatestNews(newsList);
       } catch (error) {
@@ -41,7 +41,7 @@ const NewsTicker = () => {
       >
         {latestNews.map(news => (
           <SwiperSlide key={news.id}>
-            <Link to={`/noticia/${news.id}`} className="news-ticker-item">
+            <Link to={`/news/${news.id}`} className="news-ticker-item">
               {news.title}
             </Link>
           </SwiperSlide>
