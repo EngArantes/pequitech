@@ -67,7 +67,7 @@ const NewsDetail = () => {
                     if (entityType === 'VIDEO') {
                       const videoId = src.match(/(?:youtube\.com\/(?:.*v=|.*\/)|youtu\.be\/)([^&?/]+)/)?.[1];
                       if (videoId) {
-                        return `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                        return `<div class="news-video-container"><iframe class="youtube-video" src="https://www.youtube.com/embed/${videoId}" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
                       }
                     }
                     if (entityType === 'IMAGE') {
@@ -147,8 +147,7 @@ const NewsDetail = () => {
                     const videoId = getYouTubeVideoId(news.videoLink);
                     return videoId ? (
                       <iframe
-                        width="100%"
-                        height="315"
+                        className="youtube-video"
                         src={`https://www.youtube.com/embed/${videoId}`}
                         title="YouTube Video"
                         frameBorder="0"

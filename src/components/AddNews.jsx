@@ -19,6 +19,7 @@ const AddNews = () => {
   const [fontSize, setFontSize] = useState(16);
   const { addNews } = useNews();
   const [imagePreview, setImagePreview] = useState(null);
+  const [editorVideoLink, setEditorVideoLink] = useState("");
 
   const onEditorChange = (state) => {
     setEditorState(state);
@@ -104,11 +105,19 @@ const AddNews = () => {
   };
 
   const addVideoToEditor = (url) => {
+    // Validar se é um URL válido de YouTube
+    const youtubeRegex = /(?:youtube\.com\/(?:.*v=|.*\/)|youtu\.be\/)([^&?/]+)/;
+    if (!youtubeRegex.test(url)) {
+      alert("Por favor, insira um URL válido do YouTube");
+      return;
+    }
+
     const contentState = editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity('VIDEO', 'IMMUTABLE', { src: url });
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ');
     setEditorState(newEditorState);
+    setEditorVideoLink(""); // Limpar o campo após adicionar
   };
 
   const handleKeyCommand = (command, editorState) => {
@@ -233,14 +242,32 @@ const AddNews = () => {
             <input type="file" accept="image/*" onChange={handleEditorImageChange} style={{ display: 'none' }} />
             Adicionar Imagem
           </label>
+          <div className="video-editor-input">
+            <input
+              type="url"
+              value={editorVideoLink}
+              onChange={(e) => setEditorVideoLink(e.target.value)}
+              placeholder="Cole o link do YouTube aqui"
+              style={{ marginRight: '10px' }}
+            />
+            <button
+              type="button"
+              onClick={() => addVideoToEditor(editorVideoLink)}
+              disabled={!editorVideoLink}
+            >
+              Adicionar Vídeo
+            </button>
+          </div>
         </div>
+
+        
 
         <div className="editor-container">
           <Editor
             editorState={editorState}
             onChange={onEditorChange}
             handleKeyCommand={handleKeyCommand}
-            placeholder="Conteúdo da Notícia (digite um link de vídeo e pressione Enter para incorporá-lo)"
+            placeholder="Conteúdo da Notícia"
             customStyleMap={styleMap}
             blockRendererFn={blockRendererFn}
           />
@@ -261,21 +288,29 @@ const ImageComponent = ({ blockProps }) => {
 
 const VideoComponent = ({ blockProps }) => {
   const { src } = blockProps;
-  const videoId = src.match(/(?:youtube\.com\/(?:.*v=|.*\/)|youtu\.be\/)([^&?/]+)/)?.[1];
-  if (!videoId) return <p>URL de vídeo inválida</p>;
+  const youtubeRegex = /(?:youtube\.com\/(?:.*v=|.*\/)|youtu\.be\/)([^&?/]+)/;
+  const match = src.match(youtubeRegex);
+  const videoId = match ? match[1] : null;
+
+  if (!videoId) {
+    return <p>URL de vídeo inválida</p>;
+  }
 
   return (
-    <iframe
-      width="100%"
-      height="315"
-      src={`https://www.youtube.com/embed/${videoId}`}
-      title="YouTube Video"
-      frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-    />
+    <div className="video-container" style={{ margin: '20px 0' }}>
+      <iframe
+        width="100%"
+        height="315"
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title="YouTube Video"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    </div>
   );
 };
+
 
 const styleMap = {
   HIGHLIGHT: { backgroundColor: '#ccc', color: 'black', padding: '5px' },

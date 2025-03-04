@@ -119,6 +119,23 @@
     background-color: #e0a800;
   }
 
+  .video-editor-input {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .video-editor-input input {
+    flex-grow: 1;
+    padding: 5px;
+  }
+
+  .video-container {
+    max-width: 640px;
+    margin: 20px auto;
+  }
+
 @media (max-width: 768px) {
 .buttonDestacar{
     width: 100%;
