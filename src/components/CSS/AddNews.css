@@ -103,6 +103,8 @@
 
 /* Estilização do botão de upload de imagem no toolbar */
 .image-upload-btn {
+    display: flex;
+    justify-content: center;
     background-color: #F6C113;
     color: #fff;
     padding: 8px 12px;
@@ -111,7 +113,6 @@
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    margin-left: 10px;
   }
   
   .image-upload-btn:hover {
