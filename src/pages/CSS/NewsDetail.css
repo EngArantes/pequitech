@@ -78,7 +78,7 @@
 
 
 
-.news-content-text-detail p{
+.news-content-text-detail p, .news-content-text-detail li{
     font-size: 1.4em;
     line-height: 1.6;
     color: rgb(87, 87, 87);
