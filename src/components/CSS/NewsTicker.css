@@ -79,12 +79,6 @@
   .news-ticker-item {
     font-size: 14px;
   }
-
-  .ticker-content {
-    display: flex;
-    white-space: nowrap;
-    animation: animafaixa 100s linear infinite;  
-  }
 }
 
 @media (max-width: 480px) {
@@ -95,11 +89,5 @@
   .news-ticker-item {
     font-size: 12px;
     padding: 0 10px;
-  }
-
-  .ticker-content {
-    display: flex;
-    white-space: nowrap;
-    animation: animafaixa 100s linear infinite;  
   }
 }
