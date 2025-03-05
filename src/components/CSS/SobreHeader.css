@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 10vh; /* Mantido, mas ajustaremos no desktop */
+  height: 8vh; /* Mantido, mas ajustaremos no desktop */
   padding: 5px;
   gap: 5px;
   width: 100%;
@@ -26,6 +26,9 @@
   top: 0; /* Garante que fique no topo */
   z-index: 10; /* Garante que não sobreponha os links */
 }
+.social-link:hover{
+  transform: scale(1.08);
+}
 
 /* ... (estilos do .social-link mantidos iguais) */
 
@@ -45,6 +48,10 @@
   display: inline-block; /* Garante que seja clicável */
 }
 
+.link-items:hover{
+  transform: scale(1.1);
+}
+
 .text_link {
   color: white;
   text-decoration: none;
@@ -53,7 +60,7 @@
 }
 
 .text_link:hover {
-  color: rgb(233, 233, 233);
+  color: rgb(233, 233, 233);  
 }
 
 .desktop-links .text_link::after {
