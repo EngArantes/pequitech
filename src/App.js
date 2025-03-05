@@ -3,7 +3,6 @@ import Home from './pages/Home';
 import GaleriaDeVideos from './pages/VideoGallery';
 import './App.css';
 import Header from './components/Header';
-import SobreHeader from './components/SobreHeader';
 import Dashboard from './pages/Dashboard';
 import NewsDetail from './pages/NewsDetail';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -25,7 +24,6 @@ const App = () => {
         <Router>
                    
           <NewsTicker/>
-          <SobreHeader />
           <Header />
           <ErrorBoundary>
             <Routes>

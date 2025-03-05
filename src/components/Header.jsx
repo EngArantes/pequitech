@@ -50,7 +50,7 @@ const Header = () => {
 
           <div className="mega-menu">
             <span className="nav-item" onClick={() => toggleDropdown('tecnologias')}>
-              Tecnologias ▼
+              Tecnologias
             </span>
             <div className={`mega-menu-content ${openDropdown === 'tecnologias' ? 'show' : ''}`}>
               <Link
@@ -107,7 +107,7 @@ const Header = () => {
 
           <div className="mega-menu">
             <span className="nav-item" onClick={() => toggleDropdown('entretenimento')}>
-              Entretenimento ▼
+              Entretenimento
             </span>
             <div className={`mega-menu-content ${openDropdown === 'entretenimento' ? 'show' : ''}`}>
               <Link
@@ -136,7 +136,7 @@ const Header = () => {
 
           <div className="mega-menu">
             <span className="nav-item" onClick={() => toggleDropdown('mais')}>
-              Outras Categorias ▼
+              Mais
             </span>
             <div className={`mega-menu-content ${openDropdown === 'mais' ? 'show' : ''}`}>
               <Link
