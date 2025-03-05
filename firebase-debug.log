@@ -1,0 +1,93 @@
+[debug] [2025-03-04T18:40:06.329Z] ----------------------------------------------------------------------
+[debug] [2025-03-04T18:40:06.332Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jhonn\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --debug
+[debug] [2025-03-04T18:40:06.332Z] CLI Version:   13.32.0
+[debug] [2025-03-04T18:40:06.332Z] Platform:      win32
+[debug] [2025-03-04T18:40:06.332Z] Node Version:  v20.17.0
+[debug] [2025-03-04T18:40:06.332Z] Time:          Tue Mar 04 2025 18:40:06 GMT+0000 (Hora padrão da Europa Ocidental)
+[debug] [2025-03-04T18:40:06.333Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-04T18:40:06.540Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-04T18:40:06.541Z] > authorizing via signed-in user (publish.upp@gmail.com)
+[debug] [2025-03-04T18:40:06.542Z] [iam] checking project pequitech-db413 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-03-04T18:40:06.543Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:06.543Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:06.545Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/pequitech-db413:testIamPermissions [none]
+[debug] [2025-03-04T18:40:06.545Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/pequitech-db413:testIamPermissions x-goog-quota-user=projects/pequitech-db413
+[debug] [2025-03-04T18:40:06.545Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/pequitech-db413:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-03-04T18:40:07.263Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/pequitech-db413:testIamPermissions 200
+[debug] [2025-03-04T18:40:07.263Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/pequitech-db413:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-03-04T18:40:07.264Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:07.264Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:07.265Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/pequitech-db413 [none]
+[debug] [2025-03-04T18:40:07.537Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/pequitech-db413 200
+[debug] [2025-03-04T18:40:07.537Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/pequitech-db413 {"projectId":"pequitech-db413","projectNumber":"254447273654","displayName":"PequiTech","name":"projects/pequitech-db413","resources":{"hostingSite":"pequitech-db413"},"state":"ACTIVE","etag":"1_2a28fdc8-9fba-4310-b8a1-e1d68508ac89"}
+[info] 
+[info] === Deploying to 'pequitech-db413'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2025-03-04T18:40:07.542Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:07.543Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:07.543Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/versions [none]
+[debug] [2025-03-04T18:40:07.544Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2025-03-04T18:40:09.007Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/versions 200
+[debug] [2025-03-04T18:40:09.007Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/versions {"name":"projects/254447273654/sites/pequitech-db413/versions/0f27587251d562bf","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[pequitech-db413]: beginning deploy... 
+[info] i  hosting[pequitech-db413]: found 18 files in build 
+[debug] [2025-03-04T18:40:09.023Z] [hosting] uploading with 200 concurrency
+[debug] [2025-03-04T18:40:09.027Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:09.028Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:09.029Z] [hosting] hash cache [YnVpbGQ] stored for 18 files
+[debug] [2025-03-04T18:40:09.030Z] [hosting][hash queue][FINAL] {"max":2,"min":0,"avg":0,"active":0,"complete":18,"success":18,"errored":0,"retried":0,"total":18,"elapsed":5}
+[debug] [2025-03-04T18:40:09.031Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/254447273654/sites/pequitech-db413/versions/0f27587251d562bf:populateFiles [none]
+[debug] [2025-03-04T18:40:09.031Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/254447273654/sites/pequitech-db413/versions/0f27587251d562bf:populateFiles {"files":{"/sitemap.xml":"85a0c6e106d165eb3af8b5995129178f93e5dab54cac04ff582bbc196b3659d0","/robots.txt":"bfe106a3fb878dc83461c86818bf74fc1bdc7f28538ba613cd3e775516ce8b49","/manifest.json":"6c457d494da8169432582acfbf4e98793ab0c73b40356c2fadcc3a33972c516f","/logo512.png":"2030012aa123e96179517930fa578c27517f2b3f834fb605e899983703d790f9","/logo192.png":"b730131ab94f9fae1dafe0f18f950b1cfd37b616bc3f002ef9944cb7adde958a","/index.html":"692a11a83e40799c39a903f66fa52b6aef71f1edfc54bdb4487e97623f88e319","/favicon.png":"304411c5232e3bec2487264d91d4f11b00f2dc5a114295ee9d360c1e1f835c0e","/favicon.ico":"cb02695ca1e1ad9ab4f8d188d41034a5293ba90d35a2148cccb0f3d88cdefe50","/asset-manifest.json":"47efbb21aac6f50767897ba85883c8ae2c4626bc9a3735f6ad52834250f60dfa","/ads.txt":"fb66428ff72c9c502f5643d99190accab1cb1e96437b6b1f77caade918d4017c","/static/media/logomarca.b1fa229b3d7b02071e7e.webp":"5334dbeff8be5e90cf2a6952fff4fdc9456ce87e8401b92ef2c1b6f6ade520f7","/static/js/main.9557727c.js.map":"3bf382f3b455d7fe3f71cc7d18ad6453db111be575e6f2d90a209c7744ea315b","/static/js/main.9557727c.js.LICENSE.txt":"a8473d10c0d3485d31d89c67f69caf7258ad6f8f50a4ed9a94c5bac1dadb0549","/static/js/main.9557727c.js":"1efeb7857aff05ccb0e76ae641557c3a74448aacc28ec8b3ecfdb40065cfda14","/static/js/488.61c5f772.chunk.js.map":"f442c7a214e9353d25eefbb5b8ea3403430041a319cd700e7128ca3912cea4cb","/static/js/488.61c5f772.chunk.js":"fa71e3a2f3780521d390f823a625a1901766b476b43111f647d478d45b44280d","/static/css/main.23507f1c.css.map":"fe6dd26aa173a1ebabce406612e9f799ca77ce3249a4ed93bf341ac6670ed841","/static/css/main.23507f1c.css":"f5b81029f1a233e9b2a9bf2f8b0aee342c3354941ddef61b3cd098b05e9289e5"}}
+[debug] [2025-03-04T18:40:09.496Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/254447273654/sites/pequitech-db413/versions/0f27587251d562bf:populateFiles 200
+[debug] [2025-03-04T18:40:09.497Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/254447273654/sites/pequitech-db413/versions/0f27587251d562bf:populateFiles {"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/pequitech-db413/versions/0f27587251d562bf/files"}
+[debug] [2025-03-04T18:40:09.497Z] [hosting][populate queue][FINAL] {"max":470,"min":470,"avg":470,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":470}
+[debug] [2025-03-04T18:40:09.497Z] [hosting] uploads queued: 0
+[debug] [2025-03-04T18:40:09.498Z] [hosting][upload queue][FINAL] {"max":0,"min":9999999999,"avg":0,"active":0,"complete":0,"success":0,"errored":0,"retried":0,"total":0,"elapsed":1741113609498}
+[info] i  hosting: upload complete 
+[info] +  hosting[pequitech-db413]: file upload complete 
+[debug] [2025-03-04T18:40:09.499Z] [hosting] deploy completed after 489ms
+[debug] [2025-03-04T18:40:09.499Z] [
+  {
+    "config": {
+      "public": "build",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "pequitech-db413"
+    },
+    "version": "projects/254447273654/sites/pequitech-db413/versions/0f27587251d562bf"
+  }
+]
+[info] i  hosting[pequitech-db413]: finalizing version... 
+[debug] [2025-03-04T18:40:09.501Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:09.501Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:09.502Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/versions/0f27587251d562bf updateMask=status%2Cconfig
+[debug] [2025-03-04T18:40:09.502Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/versions/0f27587251d562bf {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2025-03-04T18:40:10.108Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/versions/0f27587251d562bf 200
+[debug] [2025-03-04T18:40:10.108Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/versions/0f27587251d562bf {"name":"projects/254447273654/sites/pequitech-db413/versions/0f27587251d562bf","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2025-03-04T18:40:08.331831Z","createUser":{"email":"publish.upp@gmail.com"},"finalizeTime":"2025-03-04T18:40:09.960979Z","finalizeUser":{"email":"publish.upp@gmail.com"}}
+[debug] [2025-03-04T18:40:10.109Z] [hosting] finalized version for pequitech-db413:[object Object]
+[info] +  hosting[pequitech-db413]: version finalized 
+[info] i  hosting[pequitech-db413]: releasing new version... 
+[debug] [2025-03-04T18:40:10.110Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:10.110Z] Checked if tokens are valid: true, expires at: 1741117171288
+[debug] [2025-03-04T18:40:10.110Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/channels/live/releases versionName=projects%2F254447273654%2Fsites%2Fpequitech-db413%2Fversions%2F0f27587251d562bf
+[debug] [2025-03-04T18:40:10.110Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/channels/live/releases {}
+[debug] [2025-03-04T18:40:10.898Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/channels/live/releases 200
+[debug] [2025-03-04T18:40:10.898Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pequitech-db413/channels/live/releases {"name":"projects/254447273654/sites/pequitech-db413/channels/live/releases/1741113610079000","version":{"name":"projects/254447273654/sites/pequitech-db413/versions/0f27587251d562bf","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2025-03-04T18:40:08.331831Z","createUser":{"email":"publish.upp@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocIgTGQR9hCK-enTf_-iSEBAXG6emU0aBSke37rsa1uKYSndfQ0"},"finalizeTime":"2025-03-04T18:40:09.960979Z","finalizeUser":{"email":"publish.upp@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocIgTGQR9hCK-enTf_-iSEBAXG6emU0aBSke37rsa1uKYSndfQ0"}},"type":"DEPLOY","releaseTime":"2025-03-04T18:40:10.079Z","releaseUser":{"email":"publish.upp@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocIgTGQR9hCK-enTf_-iSEBAXG6emU0aBSke37rsa1uKYSndfQ0"}}
+[debug] [2025-03-04T18:40:10.899Z] [hosting] release: {"name":"projects/254447273654/sites/pequitech-db413/channels/live/releases/1741113610079000","version":{"name":"projects/254447273654/sites/pequitech-db413/versions/0f27587251d562bf","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2025-03-04T18:40:08.331831Z","createUser":{"email":"publish.upp@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocIgTGQR9hCK-enTf_-iSEBAXG6emU0aBSke37rsa1uKYSndfQ0"},"finalizeTime":"2025-03-04T18:40:09.960979Z","finalizeUser":{"email":"publish.upp@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocIgTGQR9hCK-enTf_-iSEBAXG6emU0aBSke37rsa1uKYSndfQ0"}},"type":"DEPLOY","releaseTime":"2025-03-04T18:40:10.079Z","releaseUser":{"email":"publish.upp@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocIgTGQR9hCK-enTf_-iSEBAXG6emU0aBSke37rsa1uKYSndfQ0"}}
+[info] +  hosting[pequitech-db413]: release complete 
+[info] 
+[info] +  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/pequitech-db413/overview
+[info] Hosting URL: https://pequitech-db413.web.app

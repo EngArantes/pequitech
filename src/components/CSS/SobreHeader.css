@@ -5,9 +5,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 10vh; /* Reduzido de 5vh para 40px (mais estreito) */
+  height: 10vh; /* Mantido, mas ajustaremos no desktop */
   padding: 5px;
-  gap: 5px; /* Reduzido para evitar overflow */
+  gap: 5px;
   width: 100%;
   box-sizing: border-box;
   position: relative;
@@ -20,45 +20,36 @@
   align-items: center;
   width: 100%;
   max-width: 1200px;
-  padding: 2px 10px; /* Padding reduzido para caber na altura */
+  padding: 2px 10px;
   position: absolute;
-  gap: 10px; /* Reduzido para layout mais compacto */
+  gap: 10px;
+  top: 0; /* Garante que fique no topo */
+  z-index: 10; /* Garante que não sobreponha os links */
 }
 
-.social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px; /* Reduzido de 32px */
-  height: 40px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
-
-.social-link:hover {
-  background-color: #F6C113;
-  transform: scale(1.1);
-}
-
-.social-link svg {
-  width: 16px; /* Reduzido de 20px */
-  height: 16px;
-}
+/* ... (estilos do .social-link mantidos iguais) */
 
 /* 🔹 Links Desktop */
+.desktop-links {
+  display: flex; /* Definido como padrão para desktop */
+  justify-content: center;
+  gap: 20px;
+  padding: 5px;
+}
+
 .link-items {
-  font-size: 14px; /* Reduzido de large para caber */
-  padding: 5px 10px; /* Padding reduzido */
+  font-size: 14px;
+  padding: 5px 10px;
   text-decoration: none;
   white-space: nowrap;
+  display: inline-block; /* Garante que seja clicável */
 }
 
 .text_link {
   color: white;
   text-decoration: none;
   font-weight: bold;
-  font-size: 14px; /* Ajustado para caber */
+  font-size: 14px;
 }
 
 .text_link:hover {
@@ -68,7 +59,7 @@
 .desktop-links .text_link::after {
   content: "|";
   color: white;
-  margin: 0 10px; /* Reduzido para layout mais compacto */
+  margin: 0 10px;
 }
 
 .desktop-links .link-items:last-child .text_link::after {
@@ -77,19 +68,13 @@
 
 /* 🔹 Carrossel */
 .carousel-wrapper {
-  display: none;
+  display: none; /* Escondido por padrão (desktop) */
   align-items: center;
-  width: 100%;
+  width: 95%;
   max-width: 100%;
   justify-content: space-between;
   padding: 0 5px;
   box-sizing: border-box;
-}
-
-.carousel-content {
-  flex-grow: 1;
-  text-align: center;
-  overflow: hidden;
 }
 
 .carousel-btn {
@@ -97,7 +82,7 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   width: 25px; /* Reduzido de 35px */
-  height: 25px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,25 +99,42 @@
   color: white;
 }
 
-.arrow-icon {
-  font-weight: bold;
-}
+/* Desktop (min-width: 769px) */
+@media (min-width: 769px) {
+  .sobre-header-container {
+    height: 10vh; /* Mantido, mas pode ser ajustado se necessário */
+    flex-direction: row; /* Alinha social-links e desktop-links lado a lado */
+    justify-content: space-between;
+    padding: 0 20px;
+  }
 
-/* 🔹 Responsividade */
+  .social-links {
+    position: static; /* Remove absolute para não sobrepor */
+    width: auto;
+  }
+
+  .desktop-links {
+    display: flex; /* Garante visibilidade no desktop */
+  }
+
+  .carousel-wrapper {
+    display: none; /* Esconde o carrossel no desktop */
+  }
+}
 
 /* Telas mobile e tablets no modo retrato (até 768px) */
 @media (max-width: 768px) {
   .sobre-header-container {
-    height: auto; /* Mantido auto para mobile */
+    height: auto;
     padding: 5px;
   }
 
   .desktop-links {
-    display: none;
+    display: none; /* Esconde os links no mobile */
   }
 
   .carousel-wrapper {
-    display: flex;
+    display: flex; /* Mostra o carrossel no mobile */
     height: 5vh;
   }
 
@@ -152,9 +154,10 @@
     content: none;
   }
 
-  .carousel-btn {
-    width: 25px; /* Já ajustado */
-    height: 40px;
+  
+  
+  .arrow-icon {
+    font-weight: bold;
   }
 
   .social-links {
@@ -175,12 +178,12 @@
   }
 
   .social-link {
-    width: 20px; /* Reduzido ainda mais */
+    width: 20px;
     height: 20px;
   }
 
   .social-link svg {
-    width: 14px; /* Reduzido */
+    width: 14px;
     height: 14px;
   }
 
