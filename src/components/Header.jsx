@@ -189,7 +189,9 @@ const Header = () => {
                 Fatos
               </Link>
             </div>
+            
           </div>
+          <Link to="/contato" className="nav-item" onClick={toggleMenu}>Contato</Link>
 
           {currentUser ? (
             <>

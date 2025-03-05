@@ -15,7 +15,7 @@
 .nav-links {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   max-width: 1200px; /* Limite máximo para centralização */
   width: 100%;
   margin: 0 auto; /* Centraliza o conteúdo */
@@ -26,7 +26,7 @@
 
 /* 🔹 Logomarca */
 .logo-container img {
-  width: 30%; /* Aumentado para destaque */
+  width: 5vw;
   height: auto;
   transition: transform 0.3s ease;
 }
@@ -34,6 +34,8 @@
 .logo-container img:hover {
   transform: scale(1.05); /* Efeito sutil ao passar o mouse */
 }
+
+
 
 /* 🔹 Menu Principal */
 .menu-items {
