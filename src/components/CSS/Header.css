@@ -26,7 +26,7 @@
 
 /* 🔹 Logomarca */
 .logo-container img {
-  width: 50%; /* Aumentado para destaque */
+  width: 30%; /* Aumentado para destaque */
   height: auto;
   transition: transform 0.3s ease;
 }
@@ -91,8 +91,11 @@
   transition: all 0.3s ease;
 }
 
-.menu-toggle:hover {
-  color: #F6C113;
+.menu-toggle button:hover{
+  background-color: blueviolet;
+}
+.menu-toggle button:active{
+  background-color: blueviolet;
 }
 
 /* 🔹 Mega Menu */
@@ -284,6 +287,13 @@ width: 95%;
   .menu-toggle {
     margin-right: 40px;
     font-size: 24px;
+  }
+
+  .menu-toggle:hover{
+    background-color: blueviolet;
+  }
+  .menu-toggle:active{
+    background-color: blueviolet;
   }
 
   .modal-content{
