@@ -33,7 +33,7 @@ const NewsTicker = () => {
       <div className="ticker-wrapper">
         <div className="ticker-content">
           {latestNews.map(news => (
-            <Link key={news.id} to={`/news/${news.slug}`} className="news-ticker-item">
+            <Link key={news.id} to={`/news/${news.id}`} className="news-ticker-item">
               {news.title}
             </Link>
           ))}
