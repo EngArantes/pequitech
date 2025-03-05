@@ -79,6 +79,10 @@
   .news-ticker-item {
     font-size: 14px;
   }
+
+  .social-links {
+    margin-right: 5px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -89,5 +93,8 @@
   .news-ticker-item {
     font-size: 12px;
     padding: 0 10px;
+  }
+  .social-links {
+    margin-right: 5px;
   }
 }
